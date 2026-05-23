@@ -6,7 +6,7 @@ export function BrandHeader() {
       <AgriNexisLogo />
       <div>
         <p className="text-xl font-bold text-emerald-900">AgriNexis</p>
-        <p className="text-sm text-gray-500">AI-Powered Urban Farming</p>
+        <p className="text-sm text-gray-500">AI-Powered Urban Farming Ecosystem</p>
       </div>
     </div>
   )

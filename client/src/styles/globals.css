@@ -18,6 +18,10 @@
   --rounded-btn: 0.75rem;
 }
 
+@theme {
+  --color-footer: #0a1120;
+}
+
 *,
 *::before,
 *::after {
