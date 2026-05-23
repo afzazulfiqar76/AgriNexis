@@ -6,8 +6,9 @@ import { SignInPage } from '@/pages/auth/SignInPage'
 import { SignUpPage } from '@/pages/auth/SignUpPage'
 import { DashboardPage } from '@/pages/dashboard/DashboardPage'
 import { HomePage } from '@/pages/public/HomePage'
-import { PlaceholderPage } from '@/pages/public/PlaceholderPage'
+import { CommunityPage } from '@/pages/public/CommunityPage'
 import { AiDoctorPage } from '@/pages/public/AiDoctorPage'
+import { IotSensorsPage } from '@/pages/public/IotSensorsPage'
 import { ProtectedRoute } from '@/routes/ProtectedRoute'
 
 export const router = createBrowserRouter([
@@ -19,24 +20,8 @@ export const router = createBrowserRouter([
         children: [
           { index: true, element: <HomePage /> },
           { path: ROUTES.AI_DOCTOR, element: <AiDoctorPage /> },
-          {
-            path: ROUTES.IOT_SENSORS,
-            element: (
-              <PlaceholderPage
-                title="IoT Sensors"
-                description="View live sensor telemetry for soil moisture, temperature, and environmental conditions."
-              />
-            ),
-          },
-          {
-            path: ROUTES.COMMUNITY,
-            element: (
-              <PlaceholderPage
-                title="Community"
-                description="Manage community engagement and platform-wide collaboration tools."
-              />
-            ),
-          },
+          { path: ROUTES.IOT_SENSORS, element: <IotSensorsPage /> },
+          { path: ROUTES.COMMUNITY, element: <CommunityPage /> },
         ],
       },
       { path: ROUTES.SIGN_IN, element: <SignInPage /> },
