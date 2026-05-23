@@ -1,4 +1,6 @@
 import { cn } from '@/utils/cn'
+import { PROGRESS_FILL, PROGRESS_TRACK } from '@/constants/uiClasses'
+import { InteractiveCard } from '@/components/ui/InteractiveCard'
 
 export function DashboardStatCard({
   label,
@@ -15,15 +17,10 @@ export function DashboardStatCard({
   progressTrackClassName,
 }) {
   return (
-    <article
-      className={cn(
-        'relative overflow-hidden rounded-2xl border border-gray-100 p-5 shadow-[0_4px_24px_rgba(0,0,0,0.06),0_1px_4px_rgba(0,0,0,0.04)]',
-        cardClassName,
-      )}
-    >
+    <InteractiveCard className={cn('group relative p-5', cardClassName)}>
       <span
         className={cn(
-          'absolute right-5 top-5 flex size-10 items-center justify-center rounded-xl',
+          'absolute right-5 top-5 flex size-10 items-center justify-center rounded-xl transition-transform duration-300 md:group-hover:scale-110',
           iconClassName,
         )}
       >
@@ -37,7 +34,7 @@ export function DashboardStatCard({
 
       {progress != null && (
         <div
-          className={cn('mt-3 h-2 overflow-hidden rounded-full', progressTrackClassName)}
+          className={cn(PROGRESS_TRACK, 'mt-3', progressTrackClassName)}
           role="progressbar"
           aria-valuenow={progress}
           aria-valuemin={0}
@@ -45,7 +42,7 @@ export function DashboardStatCard({
           aria-label={`${label} progress`}
         >
           <div
-            className={cn('h-full rounded-full transition-all', progressClassName)}
+            className={cn(PROGRESS_FILL, progressClassName)}
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -63,6 +60,6 @@ export function DashboardStatCard({
           )}
         </p>
       )}
-    </article>
+    </InteractiveCard>
   )
 }

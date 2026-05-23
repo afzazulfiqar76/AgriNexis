@@ -1,9 +1,16 @@
 import { DiagnosisCard } from '@/components/ai-doctor/DiagnosisCard'
 import { RECENT_DIAGNOSES } from '@/constants/recentDiagnoses'
+import { InteractiveCard } from '@/components/ui/InteractiveCard'
 
 export function RecentDiagnosesPanel() {
   return (
-    <section aria-labelledby="recent-diagnoses-heading">
+    <InteractiveCard
+      as="section"
+      panel
+      interactive={false}
+      className="rounded-xl border-gray-100/60 bg-gray-50/40 p-5 shadow-none"
+      aria-labelledby="recent-diagnoses-heading"
+    >
       <header className="mb-5 flex items-center justify-between gap-3">
         <h2 id="recent-diagnoses-heading" className="text-lg font-bold text-gray-900">
           Recent Diagnoses
@@ -25,6 +32,6 @@ export function RecentDiagnosesPanel() {
           />
         ))}
       </div>
-    </section>
+    </InteractiveCard>
   )
 }

@@ -8,12 +8,11 @@ export function FooterSocialLinks() {
           key={label}
           href={href}
           aria-label={label}
-          className="flex size-9 items-center justify-center rounded-lg bg-slate-800 text-slate-300 transition-colors duration-200 hover:bg-slate-700 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-footer"
+          className="flex size-9 items-center justify-center rounded-lg bg-slate-800 text-slate-300 transition-all duration-300 ease-out hover:scale-110 hover:bg-slate-700 hover:text-white hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-footer"
         >
           <Icon className="size-4" aria-hidden="true" />
         </a>
       ))}
-    {/* close wrapper */}
     </div>
   )
 }

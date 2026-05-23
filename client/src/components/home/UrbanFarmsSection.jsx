@@ -1,5 +1,7 @@
 import { Plus } from 'lucide-react'
 import { FarmCard } from '@/components/home/FarmCard'
+import { Button } from '@/components/ui/Button'
+import { InteractiveCard } from '@/components/ui/InteractiveCard'
 import { URBAN_FARMS } from '@/constants/urbanFarms'
 
 export function UrbanFarmsSection() {
@@ -8,7 +10,7 @@ export function UrbanFarmsSection() {
       aria-labelledby="urban-farms-heading"
       className="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8"
     >
-      <article className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.06),0_1px_4px_rgba(0,0,0,0.04)]">
+      <InteractiveCard panel interactive={false} className="bg-white">
         <header className="flex flex-col gap-4 border-b border-gray-100 p-6 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <h2
@@ -21,13 +23,10 @@ export function UrbanFarmsSection() {
               Manage and monitor your farming plots
             </p>
           </div>
-          <button
-            type="button"
-            className="inline-flex h-10 shrink-0 items-center justify-center gap-2 self-start rounded-xl bg-primary px-4 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 sm:self-center"
-          >
+          <Button type="button" className="h-10 shrink-0 self-start px-4 sm:self-center">
             <Plus className="size-4" strokeWidth={2.5} aria-hidden="true" />
             Add Farm
-          </button>
+          </Button>
         </header>
 
         <div className="grid grid-cols-1 gap-5 p-6 md:grid-cols-2 xl:grid-cols-3">
@@ -43,7 +42,7 @@ export function UrbanFarmsSection() {
             />
           ))}
         </div>
-      </article>
+      </InteractiveCard>
     </section>
   )
 }

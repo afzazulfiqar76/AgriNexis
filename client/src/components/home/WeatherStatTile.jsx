@@ -1,8 +1,19 @@
+import { CARD_INTERACTIVE } from '@/constants/uiClasses'
+import { cn } from '@/utils/cn'
+
 export function WeatherStatTile({ label, value, icon, iconBg, iconColor }) {
   return (
-    <div className="flex flex-col items-center gap-2 rounded-xl border border-gray-100 bg-white p-4 text-center">
+    <div
+      className={cn(
+        'group flex flex-col items-center gap-2 rounded-xl border border-gray-100 bg-white p-4 text-center',
+        CARD_INTERACTIVE,
+      )}
+    >
       <span
-        className={`flex size-10 items-center justify-center rounded-xl ${iconBg}`}
+        className={cn(
+          'flex size-10 items-center justify-center rounded-xl transition-transform duration-300 md:group-hover:scale-110',
+          iconBg,
+        )}
       >
         <span className={iconColor}>{icon}</span>
       </span>

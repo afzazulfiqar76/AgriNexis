@@ -1,17 +1,21 @@
 import { Trophy } from 'lucide-react'
 import { cn } from '@/utils/cn'
+import { CARD_INTERACTIVE } from '@/constants/uiClasses'
 
 export function LeaderboardItem({ name, score, badgeClassName, isCurrentUser }) {
   return (
     <div
       className={cn(
-        'flex items-center gap-3 rounded-xl px-3 py-2.5',
-        isCurrentUser && 'border-2 border-primary bg-primary/5',
+        'flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-300',
+        CARD_INTERACTIVE,
+        isCurrentUser
+          ? 'border-2 border-primary bg-primary/5 shadow-sm shadow-primary/10'
+          : 'hover:bg-gray-50',
       )}
     >
       <span
         className={cn(
-          'flex size-9 shrink-0 items-center justify-center rounded-lg',
+          'flex size-9 shrink-0 items-center justify-center rounded-lg transition-transform duration-300 md:hover:scale-110',
           badgeClassName,
         )}
       >

@@ -5,6 +5,7 @@ import {
   Thermometer,
   Wind,
 } from 'lucide-react'
+import { InteractiveCard } from '@/components/ui/InteractiveCard'
 import { DashboardPanelHeader } from '@/components/home/DashboardPanelHeader'
 import { WeatherStatTile } from '@/components/home/WeatherStatTile'
 import { WEATHER_FORECAST } from '@/constants/weatherForecast'
@@ -19,7 +20,7 @@ export function WeatherForecastCard() {
   const { dateLabel, temperature, condition, stats } = WEATHER_FORECAST
 
   return (
-    <article className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.06),0_1px_4px_rgba(0,0,0,0.04)]">
+    <InteractiveCard interactive={false} className="overflow-hidden bg-white transition-all duration-300 md:hover:shadow-xl">
       <DashboardPanelHeader
         title="Weather Forecast"
         headerClassName="bg-sky-50"
@@ -57,6 +58,6 @@ export function WeatherForecastCard() {
           })}
         </div>
       </div>
-    </article>
+    </InteractiveCard>
   )
 }

@@ -1,5 +1,6 @@
 import { Cloud, Droplets, Sun, Thermometer } from 'lucide-react'
 import { LiveDataIndicator } from '@/components/iot/LiveDataIndicator'
+import { InteractiveCard } from '@/components/ui/InteractiveCard'
 import { cn } from '@/utils/cn'
 
 const ICON_MAP = {
@@ -22,16 +23,13 @@ export function SensorStatCard({
   const Icon = ICON_MAP[icon] ?? Droplets
 
   return (
-    <article
-      className={cn(
-        'relative overflow-hidden rounded-3xl border p-5 shadow-[0_4px_24px_rgba(0,0,0,0.06),0_1px_4px_rgba(0,0,0,0.04)] sm:p-6',
-        cardClassName,
-      )}
+    <InteractiveCard
+      className={cn('group relative overflow-hidden rounded-3xl p-5 sm:p-6', cardClassName)}
     >
       <div className="flex items-start justify-between gap-3">
         <span
           className={cn(
-            'flex size-11 shrink-0 items-center justify-center rounded-xl',
+            'flex size-11 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 md:group-hover:scale-110',
             iconClassName,
           )}
         >
@@ -56,6 +54,6 @@ export function SensorStatCard({
       <div className="mt-5 border-t border-gray-100 pt-4">
         <LiveDataIndicator />
       </div>
-    </article>
+    </InteractiveCard>
   )
 }

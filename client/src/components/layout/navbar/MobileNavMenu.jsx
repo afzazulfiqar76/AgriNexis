@@ -1,6 +1,8 @@
 import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
+import { BTN_ICON } from '@/constants/uiClasses'
 import { NavbarNavLinks } from '@/components/layout/navbar/NavbarNavLinks'
+import { cn } from '@/utils/cn'
 
 export function MobileNavMenu() {
   const [open, setOpen] = useState(false)
@@ -9,7 +11,7 @@ export function MobileNavMenu() {
     <div className="lg:hidden">
       <button
         type="button"
-        className="flex size-10 items-center justify-center rounded-lg text-gray-700 transition-colors duration-200 hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+        className={cn(BTN_ICON, 'size-10 text-gray-700')}
         aria-expanded={open}
         aria-controls="mobile-nav-menu"
         aria-label={open ? 'Close menu' : 'Open menu'}

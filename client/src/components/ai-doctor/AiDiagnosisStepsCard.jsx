@@ -1,9 +1,13 @@
 import { BrainCircuit } from 'lucide-react'
 import { AI_DIAGNOSIS_STEPS } from '@/constants/aiDiagnosisSteps'
+import { InteractiveCard } from '@/components/ui/InteractiveCard'
 
 export function AiDiagnosisStepsCard() {
   return (
-    <article className="rounded-2xl border border-violet-100 bg-violet-50 p-6">
+    <InteractiveCard
+      interactive={false}
+      className="border-violet-100 bg-violet-50 p-6 transition-all duration-300 md:hover:shadow-lg"
+    >
       <header className="flex items-center gap-3">
         <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-purple-600 text-white">
           <BrainCircuit className="size-5" strokeWidth={2} aria-hidden="true" />
@@ -24,6 +28,6 @@ export function AiDiagnosisStepsCard() {
           </li>
         ))}
       </ol>
-    </article>
+    </InteractiveCard>
   )
 }

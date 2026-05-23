@@ -1,4 +1,7 @@
 import { ChevronRight, Leaf, MapPin } from 'lucide-react'
+import { Button } from '@/components/ui/Button'
+import { InteractiveCard } from '@/components/ui/InteractiveCard'
+import { PROGRESS_FILL, PROGRESS_TRACK } from '@/constants/uiClasses'
 import { cn } from '@/utils/cn'
 
 export function FarmCard({
@@ -10,11 +13,8 @@ export function FarmCard({
   accentClassName,
 }) {
   return (
-    <article
-      className={cn(
-        'overflow-hidden rounded-2xl border border-gray-100 border-t-4 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.06),0_1px_4px_rgba(0,0,0,0.04)]',
-        accentClassName,
-      )}
+    <InteractiveCard
+      className={cn('overflow-hidden border-t-4 bg-white', accentClassName)}
     >
       <div className="p-5">
         <div className="flex items-start justify-between gap-3">
@@ -43,7 +43,7 @@ export function FarmCard({
             <span className="font-semibold text-primary">{healthScore}%</span>
           </div>
           <div
-            className="mt-2 h-2 overflow-hidden rounded-full bg-gray-200"
+            className={cn(PROGRESS_TRACK, 'mt-2 bg-gray-200')}
             role="progressbar"
             aria-valuenow={healthScore}
             aria-valuemin={0}
@@ -51,20 +51,17 @@ export function FarmCard({
             aria-label={`${name} health score`}
           >
             <div
-              className="h-full rounded-full bg-gray-900 transition-all"
+              className={cn(PROGRESS_FILL, 'bg-gray-900')}
               style={{ width: `${healthScore}%` }}
             />
           </div>
         </div>
 
-        <button
-          type="button"
-          className="mt-5 inline-flex h-10 w-full items-center justify-center gap-1 rounded-xl border border-gray-200 bg-white text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
-        >
+        <Button variant="secondary" className="mt-5 h-10 w-full gap-1 text-sm font-medium">
           View Details
           <ChevronRight className="size-4" strokeWidth={2} aria-hidden="true" />
-        </button>
+        </Button>
       </div>
-    </article>
+    </InteractiveCard>
   )
 }

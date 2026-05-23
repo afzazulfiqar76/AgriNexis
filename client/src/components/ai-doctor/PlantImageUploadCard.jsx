@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react'
 import { Camera } from 'lucide-react'
-
-const GRADIENT_BUTTON =
-  'bg-gradient-to-r from-purple-600 to-fuchsia-500 shadow-md shadow-purple-200/60 hover:from-purple-700 hover:to-fuchsia-600'
+import { Button } from '@/components/ui/Button'
+import { CARD_INTERACTIVE } from '@/constants/uiClasses'
+import { cn } from '@/utils/cn'
 
 export function PlantImageUploadCard() {
   const fileInputRef = useRef(null)
@@ -33,11 +33,13 @@ export function PlantImageUploadCard() {
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        className={`flex cursor-pointer flex-col items-center rounded-2xl border-2 border-dashed px-6 py-12 transition-colors ${
+        className={cn(
+          'flex cursor-pointer flex-col items-center rounded-2xl border-2 border-dashed px-6 py-12 transition-all duration-300',
           isDragging
-            ? 'border-purple-300 bg-violet-50/60'
-            : 'border-violet-200 bg-white hover:border-purple-300 hover:bg-violet-50/30'
-        }`}
+            ? 'border-purple-300 bg-violet-50/60 shadow-lg shadow-purple-100'
+            : 'border-violet-200 bg-white hover:border-purple-300 hover:bg-violet-50/30 hover:shadow-md',
+          CARD_INTERACTIVE,
+        )}
       >
         <input
           ref={fileInputRef}
@@ -47,7 +49,7 @@ export function PlantImageUploadCard() {
           className="sr-only"
         />
 
-        <span className="flex size-[4.5rem] items-center justify-center rounded-full bg-purple-600 text-white shadow-lg shadow-purple-200/50">
+        <span className="flex size-[4.5rem] items-center justify-center rounded-full bg-purple-600 text-white shadow-lg shadow-purple-200/50 transition-transform duration-300 md:hover:scale-110">
           <Camera className="size-8" strokeWidth={2} aria-hidden="true" />
         </span>
 
@@ -58,14 +60,10 @@ export function PlantImageUploadCard() {
         <p className="mt-0.5 text-xs text-gray-400">PNG, JPG up to 10MB</p>
       </label>
 
-      <button
-        type="button"
-        onClick={openFilePicker}
-        className={`mt-4 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl text-sm font-semibold text-white transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-600/30 ${GRADIENT_BUTTON}`}
-      >
+      <Button type="button" variant="gradient" onClick={openFilePicker} className="mt-4 h-11 w-full">
         <Camera className="size-4" strokeWidth={2} aria-hidden="true" />
         Take Photo Now
-      </button>
+      </Button>
     </article>
   )
 }

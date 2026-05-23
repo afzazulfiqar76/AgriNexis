@@ -1,16 +1,12 @@
 import { BarChart3 } from 'lucide-react'
 import { LeaderboardItem } from '@/components/community/LeaderboardItem'
+import { InteractiveCard } from '@/components/ui/InteractiveCard'
 import { COMMUNITY_LEADERBOARD } from '@/constants/communityLeaderboard'
 import { MOCK_USER } from '@/constants/navigation'
 
-const CARD_SHADOW =
-  'shadow-[0_4px_24px_rgba(0,0,0,0.06),0_1px_4px_rgba(0,0,0,0.04)]'
-
 export function LeaderboardCard() {
   return (
-    <article
-      className={`rounded-2xl border border-gray-100 bg-white p-6 ${CARD_SHADOW}`}
-    >
+    <InteractiveCard interactive={false} className="bg-white p-6 transition-all duration-300 md:hover:shadow-xl">
       <header className="flex items-center gap-3">
         <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-600">
           <BarChart3 className="size-5" strokeWidth={2} aria-hidden="true" />
@@ -32,6 +28,6 @@ export function LeaderboardCard() {
           />
         ))}
       </div>
-    </article>
+    </InteractiveCard>
   )
 }

@@ -39,3 +39,27 @@ body {
 #root {
   min-height: 100dvh;
 }
+
+@keyframes progress-fill {
+  from {
+    width: 0;
+  }
+}
+
+@layer utilities {
+  .animate-progress-fill {
+    animation: progress-fill 0.8s ease-out forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transform: none !important;
+  }
+}

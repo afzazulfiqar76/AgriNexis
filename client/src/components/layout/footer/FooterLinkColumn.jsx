@@ -1,4 +1,11 @@
 import { Link } from 'react-router-dom'
+import { LINK_HOVER } from '@/constants/uiClasses'
+import { cn } from '@/utils/cn'
+
+const linkClassName = cn(
+  'text-sm text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-footer',
+  LINK_HOVER,
+)
 
 export function FooterLinkColumn({ title, links }) {
   return (
@@ -8,17 +15,11 @@ export function FooterLinkColumn({ title, links }) {
         {links.map((link) => (
           <li key={link.label}>
             {link.to.startsWith('#') ? (
-              <a
-                href={link.to}
-                className="text-sm text-slate-400 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-footer"
-              >
+              <a href={link.to} className={linkClassName}>
                 {link.label}
               </a>
             ) : (
-              <Link
-                to={link.to}
-                className="text-sm text-slate-400 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-footer"
-              >
+              <Link to={link.to} className={linkClassName}>
                 {link.label}
               </Link>
             )}

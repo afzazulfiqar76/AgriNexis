@@ -1,4 +1,5 @@
 import { AlertTriangle, Bell, CheckCircle, CloudRain } from 'lucide-react'
+import { InteractiveCard } from '@/components/ui/InteractiveCard'
 import { AlertItem } from '@/components/home/AlertItem'
 import { DashboardPanelHeader } from '@/components/home/DashboardPanelHeader'
 import { SMART_ALERTS } from '@/constants/smartAlerts'
@@ -11,7 +12,7 @@ const ALERT_ICONS = {
 
 export function SmartAlertsCard() {
   return (
-    <article className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-[0_4px_24px_rgba(0,0,0,0.06),0_1px_4px_rgba(0,0,0,0.04)]">
+    <InteractiveCard interactive={false} className="overflow-hidden bg-white transition-all duration-300 md:hover:shadow-xl">
       <DashboardPanelHeader
         title="Smart Alerts"
         headerClassName="bg-amber-50"
@@ -33,6 +34,6 @@ export function SmartAlertsCard() {
           )
         })}
       </section>
-    </article>
+    </InteractiveCard>
   )
 }

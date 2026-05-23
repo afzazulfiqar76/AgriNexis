@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Lock, Mail, User } from 'lucide-react'
+import { Button } from '@/components/ui/Button'
 import { InputField } from '@/components/forms/InputField'
 import { PasswordField } from '@/components/forms/PasswordField'
 
@@ -88,12 +89,9 @@ export function SignUpForm() {
         </span>
       </label>
 
-      <button
-        type="submit"
-        className="btn btn-primary h-12 min-h-12 w-full rounded-xl border-none text-base font-semibold shadow-sm"
-      >
+      <Button type="submit" className="h-12 w-full text-base">
         Sign Up
-      </button>
+      </Button>
     </form>
   )
 }

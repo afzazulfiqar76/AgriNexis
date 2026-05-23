@@ -1,4 +1,6 @@
 import { Calendar, ChevronRight, Leaf } from 'lucide-react'
+import { Button } from '@/components/ui/Button'
+import { InteractiveCard } from '@/components/ui/InteractiveCard'
 import { cn } from '@/utils/cn'
 
 const STATUS_VARIANTS = {
@@ -20,11 +22,11 @@ export function DiagnosisCard({ plantName, condition, status, date, iconClassNam
   const statusStyle = STATUS_VARIANTS[status]
 
   return (
-    <article className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.05),0_1px_3px_rgba(0,0,0,0.03)]">
+    <InteractiveCard className="overflow-hidden rounded-xl bg-white">
       <div className="relative flex items-start gap-3 p-4">
         <span
           className={cn(
-            'flex size-10 shrink-0 items-center justify-center rounded-lg',
+            'flex size-10 shrink-0 items-center justify-center rounded-lg transition-transform duration-300 md:group-hover:scale-110',
             iconClassName,
           )}
         >
@@ -51,14 +53,11 @@ export function DiagnosisCard({ plantName, condition, status, date, iconClassNam
           <Calendar className="size-3.5" strokeWidth={2} aria-hidden="true" />
           {date}
         </p>
-        <button
-          type="button"
-          className="inline-flex items-center gap-0.5 text-xs font-medium text-gray-600 transition-colors hover:text-purple-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-600/30"
-        >
+        <Button variant="ghost-link" className="h-auto gap-0.5 px-0 py-0">
           View Details
           <ChevronRight className="size-3.5" strokeWidth={2} aria-hidden="true" />
-        </button>
+        </Button>
       </div>
-    </article>
+    </InteractiveCard>
   )
 }
