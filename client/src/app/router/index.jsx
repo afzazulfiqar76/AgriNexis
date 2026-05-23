@@ -7,6 +7,7 @@ import { SignUpPage } from '@/pages/auth/SignUpPage'
 import { DashboardPage } from '@/pages/dashboard/DashboardPage'
 import { HomePage } from '@/pages/public/HomePage'
 import { PlaceholderPage } from '@/pages/public/PlaceholderPage'
+import { AiDoctorPage } from '@/pages/public/AiDoctorPage'
 import { ProtectedRoute } from '@/routes/ProtectedRoute'
 
 export const router = createBrowserRouter([
@@ -17,15 +18,7 @@ export const router = createBrowserRouter([
         element: <MainLayout />,
         children: [
           { index: true, element: <HomePage /> },
-          {
-            path: ROUTES.AI_DOCTOR,
-            element: (
-              <PlaceholderPage
-                title="AI Plant Doctor"
-                description="Access AI-driven plant health analysis and actionable treatment recommendations."
-              />
-            ),
-          },
+          { path: ROUTES.AI_DOCTOR, element: <AiDoctorPage /> },
           {
             path: ROUTES.IOT_SENSORS,
             element: (
