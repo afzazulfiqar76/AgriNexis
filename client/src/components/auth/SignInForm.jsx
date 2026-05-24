@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import { Lock, Mail } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { InputField } from '@/components/forms/InputField'
 import { PasswordField } from '@/components/forms/PasswordField'
+import { ROUTES } from '@/constants/routes'
+import { useAuth } from '@/contexts/AuthContext'
 
 const initialValues = {
   email: '',
@@ -12,9 +15,13 @@ const initialValues = {
 
 export function SignInForm() {
   const [values, setValues] = useState(initialValues)
+  const { login } = useAuth()
+  const navigate = useNavigate()
 
   function handleSubmit(event) {
     event.preventDefault()
+    login()
+    navigate(ROUTES.HOME)
   }
 
   return (
