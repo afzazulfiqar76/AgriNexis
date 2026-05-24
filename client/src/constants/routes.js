@@ -7,4 +7,6 @@ export const ROUTES = {
   IOT_SENSORS: '/iot-sensors',
   COMMUNITY: '/community',
   CONTACT: '/contact',
+  DOCUMENTATION: '/documentation',
+  PRIVACY_POLICY: '/privacy-policy',
 }

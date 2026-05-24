@@ -21,10 +21,10 @@ export const FOOTER_QUICK_LINKS = {
 export const FOOTER_RESOURCES = {
   title: 'Resources',
   links: [
-    { label: 'Documentation', to: '#' },
+    { label: 'Documentation', to: ROUTES.DOCUMENTATION },
     { label: 'API Reference', to: '#' },
     { label: 'Contact Us', to: ROUTES.CONTACT },
-    { label: 'Privacy Policy', to: '#' },
+    { label: 'Privacy Policy', to: ROUTES.PRIVACY_POLICY },
   ],
 }
 
