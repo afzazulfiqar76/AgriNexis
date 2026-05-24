@@ -22,7 +22,7 @@ export const FOOTER_RESOURCES = {
   title: 'Resources',
   links: [
     { label: 'Documentation', to: ROUTES.DOCUMENTATION },
-    { label: 'API Reference', to: '#' },
+    { label: 'FAQs', to: ROUTES.FAQS },
     { label: 'Contact Us', to: ROUTES.CONTACT },
     { label: 'Privacy Policy', to: ROUTES.PRIVACY_POLICY },
   ],

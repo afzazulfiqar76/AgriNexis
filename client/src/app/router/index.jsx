@@ -12,6 +12,7 @@ import { IotSensorsPage } from '@/pages/public/IotSensorsPage'
 import { ContactPage } from '@/pages/public/ContactPage'
 import { DocumentationPage } from '@/pages/public/DocumentationPage'
 import { PrivacyPolicyPage } from '@/pages/public/PrivacyPolicyPage'
+import { FaqsPage } from '@/pages/public/FaqsPage'
 import { ProtectedRoute } from '@/routes/ProtectedRoute'
 
 export const router = createBrowserRouter([
@@ -28,6 +29,7 @@ export const router = createBrowserRouter([
           { path: ROUTES.CONTACT, element: <ContactPage /> },
           { path: ROUTES.DOCUMENTATION, element: <DocumentationPage /> },
           { path: ROUTES.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
+          { path: ROUTES.FAQS, element: <FaqsPage /> },
         ],
       },
       { path: ROUTES.SIGN_IN, element: <SignInPage /> },

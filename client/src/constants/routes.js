@@ -9,4 +9,5 @@ export const ROUTES = {
   CONTACT: '/contact',
   DOCUMENTATION: '/documentation',
   PRIVACY_POLICY: '/privacy-policy',
+  FAQS: '/faqs',
 }
