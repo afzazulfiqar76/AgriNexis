@@ -23,7 +23,7 @@ export const FOOTER_RESOURCES = {
   links: [
     { label: 'Documentation', to: '#' },
     { label: 'API Reference', to: '#' },
-    { label: 'Support Center', to: ROUTES.CONTACT },
+    { label: 'Contact Us', to: ROUTES.CONTACT },
     { label: 'Privacy Policy', to: '#' },
   ],
 }

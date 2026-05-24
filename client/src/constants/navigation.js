@@ -13,5 +13,3 @@ export const MOCK_USER = {
   role: 'System Administrator',
   initials: 'AU',
 }
-
-export const NOTIFICATION_COUNT = 3

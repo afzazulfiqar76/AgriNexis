@@ -46,9 +46,24 @@ body {
   }
 }
 
+@keyframes dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @layer utilities {
   .animate-progress-fill {
     animation: progress-fill 0.8s ease-out forwards;
+  }
+
+  .animate-dropdown-in {
+    animation: dropdown-in 0.2s ease-out forwards;
   }
 }
 
