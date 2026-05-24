@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { Camera } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
-import { TRANSITION_UI } from '@/constants/uiClasses'
+import { CARD_HOVER_ACTION, TRANSITION_UI } from '@/constants/uiClasses'
 import { cn } from '@/utils/cn'
 
 export function PlantImageUploadCard() {
@@ -37,8 +37,11 @@ export function PlantImageUploadCard() {
           'flex cursor-pointer flex-col items-center rounded-2xl border-2 border-dashed px-6 py-12',
           TRANSITION_UI,
           isDragging
-            ? 'border-purple-300 bg-violet-50/60 shadow-md'
-            : 'border-violet-200 bg-white hover:border-purple-300 hover:bg-violet-50/30 hover:shadow-md',
+            ? 'border-purple-300 bg-violet-50/60 shadow-lg shadow-purple-200/30'
+            : cn(
+                'border-violet-200 bg-white hover:border-purple-300/80 hover:bg-violet-50/40',
+                CARD_HOVER_ACTION,
+              ),
         )}
       >
         <input

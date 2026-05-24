@@ -40,9 +40,10 @@ export function ProfileMenu({ compact = false }) {
       <button
         type="button"
         className={cn(
-          'flex items-center gap-3 rounded-xl p-1 transition-colors duration-200 ease-out',
-          'hover:bg-gray-100/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30',
-          open && 'bg-gray-100/80',
+          'flex items-center gap-3 rounded-xl p-1 transition-[color,background-color,box-shadow] duration-200 ease-out',
+          'hover:bg-gray-100/90 hover:shadow-sm hover:shadow-black/[0.04]',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30',
+          open && 'bg-gray-100/90 shadow-sm shadow-black/[0.04]',
         )}
         aria-expanded={open}
         aria-haspopup="menu"

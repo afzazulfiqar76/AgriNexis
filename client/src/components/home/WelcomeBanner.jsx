@@ -9,7 +9,7 @@ export function WelcomeBanner() {
       className={cn(
         'relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-emerald-700 p-6 shadow-[0_4px_24px_rgba(0,0,0,0.08),0_1px_4px_rgba(0,0,0,0.04)] sm:p-8',
         TRANSITION_UI,
-        'motion-safe:hover:shadow-lg',
+        'motion-safe:hover:shadow-lg motion-safe:hover:shadow-emerald-900/25 motion-safe:hover:brightness-[1.02]',
       )}
     >
       <div

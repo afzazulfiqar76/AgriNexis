@@ -10,7 +10,7 @@ export function LeaderboardItem({ name, score, badgeClassName, isCurrentUser }) 
         TRANSITION_UI,
         isCurrentUser
           ? 'border-2 border-primary bg-primary/5 shadow-sm shadow-primary/10'
-          : 'border border-transparent hover:border-gray-200 hover:bg-gray-50',
+          : 'border border-transparent hover:border-gray-200 hover:bg-gray-50/90 hover:shadow-sm hover:shadow-black/[0.03]',
       )}
     >
       <span

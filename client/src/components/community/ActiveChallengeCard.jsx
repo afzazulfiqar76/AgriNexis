@@ -12,7 +12,7 @@ export function ActiveChallengeCard() {
       className={cn(
         'rounded-2xl bg-primary p-6 text-white shadow-[0_4px_24px_rgba(0,0,0,0.08),0_1px_4px_rgba(0,0,0,0.04)]',
         TRANSITION_UI,
-        'motion-safe:hover:shadow-md',
+        'motion-safe:hover:shadow-lg motion-safe:hover:shadow-primary/25 motion-safe:hover:brightness-[1.02]',
       )}
     >
       <header className="flex items-center gap-2">

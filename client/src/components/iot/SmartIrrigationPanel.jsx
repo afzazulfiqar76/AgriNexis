@@ -20,7 +20,7 @@ export function SmartIrrigationPanel() {
       className={cn(
         'rounded-3xl border border-emerald-100 bg-gradient-to-br from-emerald-50/90 to-green-50/80 p-5 sm:p-6',
         TRANSITION_UI,
-        'motion-safe:hover:border-emerald-200 motion-safe:hover:shadow-md',
+        'motion-safe:hover:border-emerald-200 motion-safe:hover:shadow-md motion-safe:hover:shadow-emerald-500/5',
       )}
     >
       <div className="flex items-start gap-3">

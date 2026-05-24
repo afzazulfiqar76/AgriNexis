@@ -4,6 +4,7 @@ import {
   Droplets,
   TrendingUp,
 } from 'lucide-react'
+import { DROPDOWN_ITEM } from '@/constants/uiClasses'
 import { cn } from '@/utils/cn'
 
 const ICON_MAP = {
@@ -51,8 +52,10 @@ export function NotificationItem({ notification, onMarkRead }) {
         }
       }}
       className={cn(
-        'relative flex cursor-pointer gap-3 px-4 py-3 transition-colors duration-200 hover:bg-gray-50',
-        !read && 'bg-primary/5',
+        DROPDOWN_ITEM,
+        'relative flex cursor-pointer gap-3 px-4 py-3',
+        !read && 'bg-primary/[0.06]',
+        !read && 'hover:bg-primary/[0.08]',
       )}
       aria-label={read ? `${title}, read` : `${title}, unread`}
     >
