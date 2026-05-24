@@ -14,6 +14,18 @@ import { DocumentationPage } from '@/pages/public/DocumentationPage'
 import { PrivacyPolicyPage } from '@/pages/public/PrivacyPolicyPage'
 import { FaqsPage } from '@/pages/public/FaqsPage'
 import { ProtectedRoute } from '@/routes/ProtectedRoute'
+import { AdminRoute } from '@/routes/AdminRoute'
+import { AdminLayout } from '@/app/layouts/AdminLayout'
+import { AdminDashboardPage } from '@/pages/admin/AdminDashboardPage'
+import { AdminUsersPage } from '@/pages/admin/AdminUsersPage'
+import { AdminFarmsPage } from '@/pages/admin/AdminFarmsPage'
+import { AdminAiDoctorPage } from '@/pages/admin/AdminAiDoctorPage'
+import { AdminIotMonitoringPage } from '@/pages/admin/AdminIotMonitoringPage'
+import { AdminCommunityPage } from '@/pages/admin/AdminCommunityPage'
+import { AdminAnalyticsPage } from '@/pages/admin/AdminAnalyticsPage'
+import { AdminNotificationsPage } from '@/pages/admin/AdminNotificationsPage'
+import { AdminSupportPage } from '@/pages/admin/AdminSupportPage'
+import { AdminSettingsPage } from '@/pages/admin/AdminSettingsPage'
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +49,28 @@ export const router = createBrowserRouter([
       {
         element: <ProtectedRoute />,
         children: [{ path: ROUTES.DASHBOARD, element: <DashboardPage /> }],
+      },
+      {
+        path: 'admin',
+        element: <AdminRoute />,
+        children: [
+          {
+            element: <AdminLayout />,
+            children: [
+              { index: true, element: <Navigate to="dashboard" replace /> },
+              { path: 'dashboard', element: <AdminDashboardPage /> },
+              { path: 'users', element: <AdminUsersPage /> },
+              { path: 'farms', element: <AdminFarmsPage /> },
+              { path: 'ai-doctor', element: <AdminAiDoctorPage /> },
+              { path: 'iot-monitoring', element: <AdminIotMonitoringPage /> },
+              { path: 'community', element: <AdminCommunityPage /> },
+              { path: 'analytics', element: <AdminAnalyticsPage /> },
+              { path: 'notifications', element: <AdminNotificationsPage /> },
+              { path: 'support', element: <AdminSupportPage /> },
+              { path: 'settings', element: <AdminSettingsPage /> },
+            ],
+          },
+        ],
       },
       { path: '*', element: <Navigate to={ROUTES.HOME} replace /> },
     ],

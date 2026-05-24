@@ -10,4 +10,5 @@ export const ROUTES = {
   DOCUMENTATION: '/documentation',
   PRIVACY_POLICY: '/privacy-policy',
   FAQS: '/faqs',
+  ADMIN: '/admin',
 }

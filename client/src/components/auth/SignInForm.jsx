@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { InputField } from '@/components/forms/InputField'
 import { PasswordField } from '@/components/forms/PasswordField'
+import { ADMIN_CREDENTIALS, ADMIN_MOCK_USER, FARMER_MOCK_USER } from '@/constants/auth'
+import { ADMIN_ROUTES } from '@/constants/adminRoutes'
 import { ROUTES } from '@/constants/routes'
 import { useAuth } from '@/contexts/AuthContext'
 
@@ -20,8 +22,13 @@ export function SignInForm() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    login()
-    navigate(ROUTES.HOME)
+    const email = values.email.trim().toLowerCase()
+    const password = values.password
+    const isAdmin =
+      email === ADMIN_CREDENTIALS.email.toLowerCase() &&
+      password === ADMIN_CREDENTIALS.password
+    login(isAdmin ? ADMIN_MOCK_USER : FARMER_MOCK_USER)
+    navigate(isAdmin ? ADMIN_ROUTES.DASHBOARD : ROUTES.HOME)
   }
 
   return (

@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { AUTH_STORAGE_KEY } from '@/constants/auth'
-import { MOCK_USER } from '@/constants/navigation'
+import { FARMER_MOCK_USER } from '@/constants/auth'
 
 const AuthContext = createContext(null)
 
@@ -38,7 +38,7 @@ export function AuthProvider({ children }) {
     }
   }, [])
 
-  const login = useCallback((nextUser = MOCK_USER) => {
+  const login = useCallback((nextUser = FARMER_MOCK_USER) => {
     setIsAuthenticated(true)
     setUser(nextUser)
     writeStoredAuth({ isAuthenticated: true, user: nextUser })
