@@ -116,3 +116,20 @@ export const FOOTER_SOCIAL = [
 ].join(' ')
 
 export const FOOTER_DIVIDER = 'border-t border-slate-800/80'
+
+export const PROFILE_DROPDOWN_PANEL = [
+  'overflow-hidden rounded-2xl border border-slate-700/60 bg-footer/95 backdrop-blur-xl',
+  'shadow-2xl shadow-black/20',
+].join(' ')
+
+export const PROFILE_DROPDOWN_ITEM = [
+  'flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-slate-300',
+  'transition-all duration-300 ease-out',
+  'hover:bg-emerald-500/10 hover:text-emerald-400 hover:shadow-sm hover:shadow-emerald-500/10',
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/40',
+].join(' ')
+
+export const PROFILE_DROPDOWN_ITEM_DANGER = [
+  PROFILE_DROPDOWN_ITEM,
+  'hover:bg-red-500/10 hover:text-red-400 hover:shadow-red-500/10',
+].join(' ')

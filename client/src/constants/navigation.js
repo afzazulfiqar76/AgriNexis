@@ -9,7 +9,8 @@ export const NAV_ITEMS = [
 ]
 
 export const MOCK_USER = {
-  name: 'Admin User',
-  role: 'System Administrator',
-  initials: 'AU',
+  name: 'Ahmad Khan',
+  role: 'farmer',
+  roleLabel: 'Urban Farmer',
+  initials: 'AK',
 }
