@@ -6,4 +6,5 @@ export const ROUTES = {
   AI_DOCTOR: '/ai-doctor',
   IOT_SENSORS: '/iot-sensors',
   COMMUNITY: '/community',
+  CONTACT: '/contact',
 }

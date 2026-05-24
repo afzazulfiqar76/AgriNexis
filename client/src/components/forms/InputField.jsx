@@ -5,10 +5,12 @@ export function InputField({
   leftIcon,
   rightSlot,
   id,
+  error,
   className,
   ...props
 }) {
   const inputId = id ?? props.name
+  const errorId = error ? `${inputId}-error` : undefined
 
   return (
     <div className="w-full space-y-1.5">
@@ -29,12 +31,15 @@ export function InputField({
         )}
         <input
           id={inputId}
+          aria-invalid={error ? true : undefined}
+          aria-describedby={errorId}
           className={cn(
             'w-full rounded-xl border-0 bg-base-300 py-3 text-sm text-gray-900',
             'placeholder:text-gray-400',
             'focus:outline-none focus:ring-2 focus:ring-primary/30',
             leftIcon ? 'pl-10' : 'px-4',
             rightSlot ? 'pr-10' : leftIcon ? 'pr-4' : '',
+            error && 'ring-2 ring-red-400/50',
             className,
           )}
           {...props}
@@ -45,6 +50,11 @@ export function InputField({
           </div>
         )}
       </div>
+      {error && (
+        <p id={errorId} className="text-xs font-medium text-red-600" role="alert">
+          {error}
+        </p>
+      )}
     </div>
   )
 }

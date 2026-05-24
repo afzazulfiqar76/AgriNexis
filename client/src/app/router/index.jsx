@@ -9,6 +9,7 @@ import { HomePage } from '@/pages/public/HomePage'
 import { CommunityPage } from '@/pages/public/CommunityPage'
 import { AiDoctorPage } from '@/pages/public/AiDoctorPage'
 import { IotSensorsPage } from '@/pages/public/IotSensorsPage'
+import { ContactPage } from '@/pages/public/ContactPage'
 import { ProtectedRoute } from '@/routes/ProtectedRoute'
 
 export const router = createBrowserRouter([
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
           { path: ROUTES.AI_DOCTOR, element: <AiDoctorPage /> },
           { path: ROUTES.IOT_SENSORS, element: <IotSensorsPage /> },
           { path: ROUTES.COMMUNITY, element: <CommunityPage /> },
+          { path: ROUTES.CONTACT, element: <ContactPage /> },
         ],
       },
       { path: ROUTES.SIGN_IN, element: <SignInPage /> },
