@@ -12,7 +12,7 @@ const ALERT_ICONS = {
 
 export function SmartAlertsCard() {
   return (
-    <InteractiveCard interactive={false} className="overflow-hidden bg-white transition-all duration-300 md:hover:shadow-xl">
+    <InteractiveCard hover="none" className="overflow-hidden bg-white">
       <DashboardPanelHeader
         title="Smart Alerts"
         headerClassName="bg-amber-50"

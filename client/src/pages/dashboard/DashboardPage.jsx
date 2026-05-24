@@ -54,7 +54,7 @@ export function DashboardPage() {
             const Icon = link.icon
             return (
               <Link key={link.to} to={link.to} className="block">
-                <InteractiveCard className="h-full p-5 sm:p-6">
+                <InteractiveCard hover="action" className="h-full p-5 sm:p-6">
                   <span
                     className={cn(
                       'mb-4 inline-flex size-10 items-center justify-center rounded-xl',

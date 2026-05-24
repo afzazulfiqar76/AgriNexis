@@ -5,7 +5,7 @@ import { cn } from '@/utils/cn'
 
 export function UserCard({ user, onView, onSuspend }) {
   return (
-    <InteractiveCard interactive={false} className="p-4">
+    <InteractiveCard hover="none" className="p-4">
       <div className="flex items-start justify-between gap-2">
         <div>
           <p className="font-semibold text-gray-900">{user.fullName}</p>

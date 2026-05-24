@@ -5,8 +5,8 @@ import { InteractiveCard } from '@/components/ui/InteractiveCard'
 export function AiDiagnosisStepsCard() {
   return (
     <InteractiveCard
-      interactive={false}
-      className="border-violet-100 bg-violet-50 p-6 transition-all duration-300 md:hover:shadow-lg"
+      hover="none"
+      className="border-violet-100 bg-violet-50 p-6"
     >
       <header className="flex items-center gap-3">
         <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-purple-600 text-white">

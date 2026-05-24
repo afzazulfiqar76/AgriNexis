@@ -1,6 +1,6 @@
 import { TrendingUp } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
-import { PROGRESS_FILL, PROGRESS_TRACK, CARD_INTERACTIVE } from '@/constants/uiClasses'
+import { PROGRESS_FILL, PROGRESS_TRACK, TRANSITION_UI } from '@/constants/uiClasses'
 import { ACTIVE_CHALLENGE } from '@/constants/activeChallenge'
 import { cn } from '@/utils/cn'
 
@@ -11,7 +11,8 @@ export function ActiveChallengeCard() {
     <article
       className={cn(
         'rounded-2xl bg-primary p-6 text-white shadow-[0_4px_24px_rgba(0,0,0,0.08),0_1px_4px_rgba(0,0,0,0.04)]',
-        CARD_INTERACTIVE,
+        TRANSITION_UI,
+        'motion-safe:hover:shadow-md',
       )}
     >
       <header className="flex items-center gap-2">

@@ -6,7 +6,7 @@ import { InteractiveCard } from '@/components/ui/InteractiveCard'
 export function CommunityFeedSection() {
   return (
     <section aria-labelledby="community-feed-heading">
-      <InteractiveCard panel interactive={false} className="bg-white">
+      <InteractiveCard panel hover="none" className="bg-white">
         <header className="flex items-center gap-3 border-b border-gray-100 px-6 py-5">
           <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-sky-500 text-white">
             <Users className="size-5" strokeWidth={2} aria-hidden="true" />

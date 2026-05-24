@@ -1,5 +1,5 @@
 import { cn } from '@/utils/cn'
-import { CARD_INTERACTIVE } from '@/constants/uiClasses'
+import { TRANSITION_UI } from '@/constants/uiClasses'
 
 const ALERT_VARIANTS = {
   warning: {
@@ -23,7 +23,7 @@ export function AlertItem({ variant, message, timeAgo, icon }) {
     <article
       className={cn(
         'flex items-start gap-3 rounded-xl border p-4',
-        CARD_INTERACTIVE,
+        TRANSITION_UI,
         styles.container,
       )}
     >

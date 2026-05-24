@@ -14,6 +14,7 @@ export function FarmCard({
 }) {
   return (
     <InteractiveCard
+      hover="action"
       className={cn('overflow-hidden border-t-4 bg-white', accentClassName)}
     >
       <div className="p-5">

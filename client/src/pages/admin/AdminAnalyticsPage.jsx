@@ -28,7 +28,7 @@ export function AdminAnalyticsPage() {
         <ChartPlaceholder title="Farm Health Trends" />
         <ChartPlaceholder title="Resource Usage" />
       </div>
-      <InteractiveCard interactive={false} className="p-5 sm:p-6">
+      <InteractiveCard hover="none" className="p-5 sm:p-6">
         <h3 className="mb-4 text-sm font-bold uppercase tracking-wide text-gray-500">
           Top Performing Farms
         </h3>

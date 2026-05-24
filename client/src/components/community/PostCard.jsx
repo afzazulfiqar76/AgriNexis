@@ -5,7 +5,7 @@ import { InteractiveCard } from '@/components/ui/InteractiveCard'
 
 export function PostCard({ authorName, initials, timeAgo, content, likeCount }) {
   return (
-    <InteractiveCard className="bg-white p-5">
+    <InteractiveCard hover="none" className="bg-white p-5">
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-center gap-3">
           <Avatar initials={initials} size="md" />

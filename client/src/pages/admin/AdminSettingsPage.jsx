@@ -48,7 +48,7 @@ export function AdminSettingsPage() {
       />
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {SECTIONS.map((section) => (
-          <InteractiveCard key={section.id} interactive={false} className="p-5 sm:p-6">
+          <InteractiveCard key={section.id} hover="none" className="p-5 sm:p-6">
             <h3 className="mb-4 text-sm font-bold uppercase tracking-wide text-gray-500">
               {section.title}
             </h3>

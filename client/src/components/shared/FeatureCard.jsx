@@ -1,19 +1,13 @@
 import { memo } from 'react'
-import { CARD_INTERACTIVE, CARD_SURFACE } from '@/constants/uiClasses'
+import { InteractiveCard } from '@/components/ui/InteractiveCard'
 import { cn } from '@/utils/cn'
 
-function FeatureCardComponent({ icon, label }) {
+function FeatureCardComponent({ icon, label, className }) {
   return (
-    <div
-      className={cn(
-        CARD_SURFACE,
-        CARD_INTERACTIVE,
-        'flex items-center gap-3 p-4 md:hover:scale-[1.02]',
-      )}
-    >
+    <InteractiveCard hover="action" className={cn('flex items-center gap-3 p-4', className)}>
       {icon}
       <span className="text-sm font-medium text-gray-800">{label}</span>
-    </div>
+    </InteractiveCard>
   )
 }
 

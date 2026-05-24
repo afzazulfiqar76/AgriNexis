@@ -20,7 +20,7 @@ export function WeatherForecastCard() {
   const { dateLabel, temperature, condition, stats } = WEATHER_FORECAST
 
   return (
-    <InteractiveCard interactive={false} className="overflow-hidden bg-white transition-all duration-300 md:hover:shadow-xl">
+    <InteractiveCard hover="none" className="overflow-hidden bg-white">
       <DashboardPanelHeader
         title="Weather Forecast"
         headerClassName="bg-sky-50"

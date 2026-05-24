@@ -17,10 +17,10 @@ export function DashboardStatCard({
   progressTrackClassName,
 }) {
   return (
-    <InteractiveCard className={cn('group relative p-5', cardClassName)}>
+    <InteractiveCard hover="none" className={cn('relative p-5', cardClassName)}>
       <span
         className={cn(
-          'absolute right-5 top-5 flex size-10 items-center justify-center rounded-xl transition-transform duration-300 md:group-hover:scale-110',
+          'absolute right-5 top-5 flex size-10 items-center justify-center rounded-xl',
           iconClassName,
         )}
       >

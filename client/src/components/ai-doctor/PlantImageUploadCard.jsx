@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { Camera } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
-import { CARD_INTERACTIVE } from '@/constants/uiClasses'
+import { TRANSITION_UI } from '@/constants/uiClasses'
 import { cn } from '@/utils/cn'
 
 export function PlantImageUploadCard() {
@@ -34,11 +34,11 @@ export function PlantImageUploadCard() {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         className={cn(
-          'flex cursor-pointer flex-col items-center rounded-2xl border-2 border-dashed px-6 py-12 transition-all duration-300',
+          'flex cursor-pointer flex-col items-center rounded-2xl border-2 border-dashed px-6 py-12',
+          TRANSITION_UI,
           isDragging
-            ? 'border-purple-300 bg-violet-50/60 shadow-lg shadow-purple-100'
+            ? 'border-purple-300 bg-violet-50/60 shadow-md'
             : 'border-violet-200 bg-white hover:border-purple-300 hover:bg-violet-50/30 hover:shadow-md',
-          CARD_INTERACTIVE,
         )}
       >
         <input
@@ -49,7 +49,7 @@ export function PlantImageUploadCard() {
           className="sr-only"
         />
 
-        <span className="flex size-[4.5rem] items-center justify-center rounded-full bg-purple-600 text-white shadow-lg shadow-purple-200/50 transition-transform duration-300 md:hover:scale-110">
+        <span className="flex size-[4.5rem] items-center justify-center rounded-full bg-purple-600 text-white shadow-md shadow-purple-200/50">
           <Camera className="size-8" strokeWidth={2} aria-hidden="true" />
         </span>
 

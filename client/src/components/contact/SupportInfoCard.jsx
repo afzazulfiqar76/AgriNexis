@@ -27,6 +27,7 @@ export function SupportInfoCard({ label, value, href, icon }) {
     <InteractiveCard
       as={href ? 'a' : 'article'}
       href={href}
+      hover={href ? 'subtle' : 'none'}
       className={cn(
         'flex items-center gap-4 p-5',
         href && 'no-underline hover:text-gray-900',

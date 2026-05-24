@@ -7,7 +7,7 @@ export function RecentDiagnosesPanel() {
     <InteractiveCard
       as="section"
       panel
-      interactive={false}
+      hover="none"
       className="rounded-xl border-gray-100/60 bg-gray-50/40 p-5 shadow-none"
       aria-labelledby="recent-diagnoses-heading"
     >

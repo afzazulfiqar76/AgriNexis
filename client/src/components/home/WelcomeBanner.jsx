@@ -1,6 +1,6 @@
 import { BarChart3, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
-import { CARD_INTERACTIVE } from '@/constants/uiClasses'
+import { TRANSITION_UI } from '@/constants/uiClasses'
 import { cn } from '@/utils/cn'
 
 export function WelcomeBanner() {
@@ -8,7 +8,8 @@ export function WelcomeBanner() {
     <article
       className={cn(
         'relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-emerald-700 p-6 shadow-[0_4px_24px_rgba(0,0,0,0.08),0_1px_4px_rgba(0,0,0,0.04)] sm:p-8',
-        CARD_INTERACTIVE,
+        TRANSITION_UI,
+        'motion-safe:hover:shadow-lg',
       )}
     >
       <div

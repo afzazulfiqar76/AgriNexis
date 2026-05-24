@@ -24,12 +24,13 @@ export function SensorStatCard({
 
   return (
     <InteractiveCard
-      className={cn('group relative overflow-hidden rounded-3xl p-5 sm:p-6', cardClassName)}
+      hover="none"
+      className={cn('relative overflow-hidden rounded-3xl p-5 sm:p-6', cardClassName)}
     >
       <div className="flex items-start justify-between gap-3">
         <span
           className={cn(
-            'flex size-11 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 md:group-hover:scale-110',
+            'flex size-11 shrink-0 items-center justify-center rounded-xl',
             iconClassName,
           )}
         >

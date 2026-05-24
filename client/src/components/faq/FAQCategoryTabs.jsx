@@ -23,7 +23,7 @@ export function FAQCategoryTabs({ activeCategory, onSelect }) {
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2',
               isActive
                 ? 'bg-primary text-white shadow-sm shadow-primary/20'
-                : 'border border-gray-200 bg-white text-gray-700 hover:scale-[1.02] hover:border-gray-300 hover:shadow-md',
+                : 'border border-gray-200 bg-white text-gray-700 hover:border-gray-300 hover:bg-gray-50 hover:shadow-sm',
             )}
           >
             {category.label}

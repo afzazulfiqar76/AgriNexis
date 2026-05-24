@@ -7,7 +7,7 @@ export function FAQAccordion({ item, isOpen, onToggle }) {
   const headerId = `faq-header-${item.id}`
 
   return (
-    <InteractiveCard interactive={false} className="overflow-hidden p-0">
+    <InteractiveCard hover="none" className="overflow-hidden p-0">
       <button
         type="button"
         id={headerId}

@@ -40,7 +40,7 @@ export function ProfileMenu({ compact = false }) {
       <button
         type="button"
         className={cn(
-          'flex items-center gap-3 rounded-xl p-1 transition-all duration-300 ease-out',
+          'flex items-center gap-3 rounded-xl p-1 transition-colors duration-200 ease-out',
           'hover:bg-gray-100/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30',
           open && 'bg-gray-100/80',
         )}
@@ -62,7 +62,7 @@ export function ProfileMenu({ compact = false }) {
           initials={profile.initials}
           size="md"
           aria-hidden="true"
-          className="shadow-sm transition-shadow duration-300 group-hover:shadow-md"
+          className="shadow-sm"
         />
       </button>
 

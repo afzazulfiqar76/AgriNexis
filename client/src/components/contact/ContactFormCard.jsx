@@ -4,7 +4,7 @@ import { CONTACT_PAGE } from '@/constants/contact'
 
 export function ContactFormCard() {
   return (
-    <InteractiveCard panel className="p-6 sm:p-8">
+    <InteractiveCard panel hover="none" className="p-6 sm:p-8">
       <div className="mb-6">
         <h2 className="text-xl font-bold tracking-tight text-gray-900">
           {CONTACT_PAGE.formTitle}

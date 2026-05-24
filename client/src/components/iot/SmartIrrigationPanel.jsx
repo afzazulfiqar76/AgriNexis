@@ -1,8 +1,7 @@
 import { Clock, Droplets, Settings, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { IRRIGATION_RECOMMENDATION } from '@/constants/irrigationRecommendation'
-
-import { CARD_INTERACTIVE } from '@/constants/uiClasses'
+import { CARD_SURFACE, TRANSITION_UI } from '@/constants/uiClasses'
 import { cn } from '@/utils/cn'
 
 export function SmartIrrigationPanel() {
@@ -19,8 +18,9 @@ export function SmartIrrigationPanel() {
     <section
       aria-labelledby="irrigation-heading"
       className={cn(
-        'rounded-3xl border border-emerald-100 bg-gradient-to-br from-emerald-50/90 to-green-50/80 p-5 transition-all duration-300 sm:p-6 md:hover:shadow-lg',
-        CARD_INTERACTIVE,
+        'rounded-3xl border border-emerald-100 bg-gradient-to-br from-emerald-50/90 to-green-50/80 p-5 sm:p-6',
+        TRANSITION_UI,
+        'motion-safe:hover:border-emerald-200 motion-safe:hover:shadow-md',
       )}
     >
       <div className="flex items-start gap-3">
@@ -38,7 +38,7 @@ export function SmartIrrigationPanel() {
         </div>
       </div>
 
-      <article className="mt-5 rounded-2xl border border-emerald-100 bg-white p-5 shadow-[0_4px_24px_rgba(0,0,0,0.06),0_1px_4px_rgba(0,0,0,0.04)] ring-1 ring-emerald-50 transition-all duration-300 sm:p-6 md:hover:-translate-y-0.5 md:hover:shadow-xl">
+      <article className={cn(CARD_SURFACE, 'mt-5 p-5 ring-1 ring-emerald-50 sm:p-6')}>
         <div className="flex items-start gap-4">
           <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600">
             <Zap className="size-5" strokeWidth={2} aria-hidden="true" />

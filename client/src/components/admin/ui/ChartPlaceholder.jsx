@@ -3,7 +3,7 @@ import { InteractiveCard } from '@/components/ui/InteractiveCard'
 
 export function ChartPlaceholder({ title, description }) {
   return (
-    <InteractiveCard interactive={false} className="flex min-h-[240px] flex-col items-center justify-center p-8 text-center">
+    <InteractiveCard hover="none" className="flex min-h-[240px] flex-col items-center justify-center p-8 text-center">
       <span className="mb-3 flex size-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
         <BarChart3 className="size-6" strokeWidth={2} aria-hidden="true" />
       </span>

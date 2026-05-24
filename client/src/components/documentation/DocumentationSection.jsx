@@ -29,10 +29,7 @@ export function DocumentationSection({ section }) {
 
   return (
     <section id={section.id} className="scroll-mt-24">
-      <InteractiveCard
-        interactive={false}
-        className="overflow-hidden bg-white p-6 transition-all duration-300 sm:p-8 md:hover:shadow-xl"
-      >
+      <InteractiveCard hover="none" className="overflow-hidden bg-white p-6 sm:p-8">
         <div className="flex items-start gap-4">
           <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
             <Icon className="size-5" strokeWidth={2} aria-hidden="true" />

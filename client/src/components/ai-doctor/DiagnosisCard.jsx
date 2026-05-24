@@ -22,11 +22,11 @@ export function DiagnosisCard({ plantName, condition, status, date, iconClassNam
   const statusStyle = STATUS_VARIANTS[status]
 
   return (
-    <InteractiveCard className="overflow-hidden rounded-xl bg-white">
+    <InteractiveCard hover="none" className="overflow-hidden rounded-xl bg-white">
       <div className="relative flex items-start gap-3 p-4">
         <span
           className={cn(
-            'flex size-10 shrink-0 items-center justify-center rounded-lg transition-transform duration-300 md:group-hover:scale-110',
+            'flex size-10 shrink-0 items-center justify-center rounded-lg',
             iconClassName,
           )}
         >

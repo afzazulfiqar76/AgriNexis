@@ -2,7 +2,7 @@ import { InteractiveCard } from '@/components/ui/InteractiveCard'
 
 export function ActivityFeed({ items, title = 'Recent Activity' }) {
   return (
-    <InteractiveCard interactive={false} className="p-5 sm:p-6">
+    <InteractiveCard hover="none" className="p-5 sm:p-6">
       <h3 className="mb-4 text-sm font-bold uppercase tracking-wide text-gray-500">
         {title}
       </h3>

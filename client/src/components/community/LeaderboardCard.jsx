@@ -6,7 +6,7 @@ import { MOCK_USER } from '@/constants/navigation'
 
 export function LeaderboardCard() {
   return (
-    <InteractiveCard interactive={false} className="bg-white p-6 transition-all duration-300 md:hover:shadow-xl">
+    <InteractiveCard hover="none" className="bg-white p-6">
       <header className="flex items-center gap-3">
         <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-600">
           <BarChart3 className="size-5" strokeWidth={2} aria-hidden="true" />

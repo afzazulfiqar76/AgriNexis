@@ -8,7 +8,7 @@ import { cn } from '@/utils/cn'
 
 export function HelpCard() {
   return (
-    <InteractiveCard className="p-6 text-center sm:p-8">
+    <InteractiveCard hover="action" className="p-6 text-center sm:p-8">
       <h2 className="text-lg font-bold tracking-tight text-gray-900 sm:text-xl">
         {HELP_CARD.title}
       </h2>

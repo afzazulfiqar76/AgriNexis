@@ -30,7 +30,7 @@ export function AdminDashboardPage() {
         ))}
       </div>
 
-      <InteractiveCard interactive={false} className="p-4 sm:p-5">
+      <InteractiveCard hover="none" className="p-4 sm:p-5">
         <h3 className="mb-3 text-sm font-bold uppercase tracking-wide text-gray-500">
           System Status
         </h3>

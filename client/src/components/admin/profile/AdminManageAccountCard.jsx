@@ -13,13 +13,7 @@ function formatStatus(status) {
 
 export function AdminManageAccountCard({ profile, onEdit, onChangePassword }) {
   return (
-    <InteractiveCard
-      interactive
-      className={cn(
-        'rounded-2xl border border-white/80 bg-white/95 p-5 shadow-[0_4px_24px_rgba(0,0,0,0.06)] backdrop-blur-sm sm:p-7',
-        'transition-all duration-300 md:hover:shadow-[0_8px_32px_rgba(16,185,129,0.1)]',
-      )}
-    >
+    <InteractiveCard hover="none" className="sm:p-7">
       <div className="mb-6 flex flex-col gap-4 border-b border-gray-100 pb-5 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-lg font-bold text-gray-900">Personal information</h2>
         <div className="flex flex-wrap items-center gap-2">

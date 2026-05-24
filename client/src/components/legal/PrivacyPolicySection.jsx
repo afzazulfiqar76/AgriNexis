@@ -3,10 +3,7 @@ import { InteractiveCard } from '@/components/ui/InteractiveCard'
 export function PrivacyPolicySection({ section, index }) {
   return (
     <section id={section.id} className="scroll-mt-24">
-      <InteractiveCard
-        interactive={false}
-        className="bg-white p-6 transition-all duration-300 sm:p-8 md:hover:shadow-xl"
-      >
+      <InteractiveCard hover="none" className="bg-white p-6 sm:p-8">
         <h2 className="flex items-baseline gap-3 text-lg font-bold text-gray-900 sm:text-xl">
           <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-sm font-bold text-primary">
             {index + 1}

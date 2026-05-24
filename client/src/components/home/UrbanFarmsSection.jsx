@@ -10,7 +10,7 @@ export function UrbanFarmsSection() {
       aria-labelledby="urban-farms-heading"
       className="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8"
     >
-      <InteractiveCard panel interactive={false} className="bg-white">
+      <InteractiveCard panel hover="none" className="bg-white">
         <header className="flex flex-col gap-4 border-b border-gray-100 p-6 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <h2

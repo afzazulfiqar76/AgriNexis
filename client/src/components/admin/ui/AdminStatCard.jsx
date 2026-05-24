@@ -22,10 +22,10 @@ export function AdminStatCard({ label, value, trend, icon, iconClassName }) {
   const Icon = ICON_MAP[icon] ?? Users
 
   return (
-    <InteractiveCard className="group relative p-5">
+    <InteractiveCard hover="none" className="relative p-5">
       <span
         className={cn(
-          'absolute right-5 top-5 flex size-10 items-center justify-center rounded-xl transition-transform duration-300 md:group-hover:scale-110',
+          'absolute right-5 top-5 flex size-10 items-center justify-center rounded-xl',
           iconClassName,
         )}
       >
