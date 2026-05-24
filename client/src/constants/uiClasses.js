@@ -96,3 +96,23 @@ export const PROGRESS_FILL =
 
 export const LINK_HOVER =
   'transition-all duration-300 ease-out hover:translate-x-0.5 hover:text-white'
+
+export const FOOTER_HEADING =
+  'text-xs font-bold uppercase tracking-widest text-emerald-400'
+
+export const FOOTER_LINK = [
+  'text-sm text-slate-400 transition-all duration-300 ease-out',
+  'hover:translate-x-0.5 hover:text-white',
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-footer',
+].join(' ')
+
+export const FOOTER_TEXT = 'text-sm leading-relaxed text-slate-400/90'
+
+export const FOOTER_SOCIAL = [
+  'flex size-10 items-center justify-center rounded-xl bg-slate-800/80 text-slate-300',
+  'transition-all duration-300 ease-out',
+  'hover:scale-110 hover:bg-emerald-500/10 hover:text-emerald-400 hover:shadow-lg hover:shadow-emerald-500/20',
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 focus-visible:ring-offset-footer',
+].join(' ')
+
+export const FOOTER_DIVIDER = 'border-t border-slate-800/80'
