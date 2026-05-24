@@ -10,4 +10,5 @@ export const ADMIN_ROUTES = {
   NOTIFICATIONS: '/admin/notifications',
   SUPPORT: '/admin/support',
   SETTINGS: '/admin/settings',
+  PROFILE: '/admin/profile',
 }

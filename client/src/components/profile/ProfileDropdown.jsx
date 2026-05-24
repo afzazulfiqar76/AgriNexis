@@ -5,6 +5,7 @@ import { USER_ROLES } from '@/constants/auth'
 import {
   PROFILE_MENU_ITEM_IDS,
   buildProfileMenuItems,
+  getProfilePath,
 } from '@/constants/profileMenu'
 import { PROFILE_DROPDOWN_PANEL } from '@/constants/uiClasses'
 import { ROUTES } from '@/constants/routes'
@@ -20,7 +21,9 @@ export function ProfileDropdown({ open, onClose, user, onLogout }) {
 
   function getItemPath(item) {
     if (item.to) return item.to
-    if (item.id === PROFILE_MENU_ITEM_IDS.PROFILE) return ROUTES.DASHBOARD
+    if (item.id === PROFILE_MENU_ITEM_IDS.PROFILE) {
+      return getProfilePath({ isAdmin })
+    }
     if (item.id === PROFILE_MENU_ITEM_IDS.SETTINGS) {
       return isAdmin ? ADMIN_ROUTES.SETTINGS : ROUTES.DASHBOARD
     }

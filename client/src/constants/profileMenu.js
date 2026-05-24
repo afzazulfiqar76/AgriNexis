@@ -50,6 +50,10 @@ export function getPortalMenuItem(inAdminPanel) {
   }
 }
 
+export function getProfilePath({ isAdmin }) {
+  return isAdmin ? ADMIN_ROUTES.PROFILE : ROUTES.DASHBOARD
+}
+
 export function buildProfileMenuItems({ pathname, isAdmin }) {
   const items = [...PROFILE_MENU_BASE_ITEMS]
 

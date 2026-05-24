@@ -36,4 +36,8 @@ export const ADMIN_PAGE_TITLES = {
   [ADMIN_ROUTES.NOTIFICATIONS]: { title: 'Notifications', subtitle: 'Platform alerts and delivery logs' },
   [ADMIN_ROUTES.SUPPORT]: { title: 'Support Center', subtitle: 'Contact requests and help desk' },
   [ADMIN_ROUTES.SETTINGS]: { title: 'Settings', subtitle: 'Platform configuration and security' },
+  [ADMIN_ROUTES.PROFILE]: {
+    title: 'Manage My Account',
+    subtitle: 'View and update your account details',
+  },
 }

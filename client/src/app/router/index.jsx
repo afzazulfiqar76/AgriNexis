@@ -26,6 +26,7 @@ import { AdminAnalyticsPage } from '@/pages/admin/AdminAnalyticsPage'
 import { AdminNotificationsPage } from '@/pages/admin/AdminNotificationsPage'
 import { AdminSupportPage } from '@/pages/admin/AdminSupportPage'
 import { AdminSettingsPage } from '@/pages/admin/AdminSettingsPage'
+import { AdminProfilePage } from '@/pages/admin/AdminProfilePage'
 
 export const router = createBrowserRouter([
   {
@@ -68,6 +69,7 @@ export const router = createBrowserRouter([
               { path: 'notifications', element: <AdminNotificationsPage /> },
               { path: 'support', element: <AdminSupportPage /> },
               { path: 'settings', element: <AdminSettingsPage /> },
+              { path: 'profile', element: <AdminProfilePage /> },
             ],
           },
         ],

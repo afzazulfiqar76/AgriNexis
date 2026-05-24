@@ -50,14 +50,31 @@ export function AuthProvider({ children }) {
     writeStoredAuth(null)
   }, [])
 
+  const updateUser = useCallback((partial) => {
+    setUser((prev) => {
+      if (!prev) return prev
+      const next = { ...prev, ...partial }
+      if (partial.name) {
+        const parts = partial.name.trim().split(/\s+/)
+        next.initials =
+          parts.length >= 2
+            ? `${parts[0][0]}${parts[1][0]}`.toUpperCase()
+            : partial.name.slice(0, 2).toUpperCase()
+      }
+      writeStoredAuth({ isAuthenticated: true, user: next })
+      return next
+    })
+  }, [])
+
   const value = useMemo(
     () => ({
       isAuthenticated,
       user,
       login,
       logout,
+      updateUser,
     }),
-    [isAuthenticated, user, login, logout],
+    [isAuthenticated, user, login, logout, updateUser],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
