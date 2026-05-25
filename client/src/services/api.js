@@ -1,8 +1,9 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? ''
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? '').trim().replace(/\/$/, '')
 
 export async function api(endpoint, options = {}) {
   const { params, headers, ...rest } = options
-  const url = new URL(`${API_BASE_URL}${endpoint}`, window.location.origin)
+  const path = endpoint.startsWith('/') ? endpoint : `/${endpoint}`
+  const url = new URL(`${API_BASE_URL}${path}`)
 
   if (params) {
     Object.entries(params).forEach(([key, value]) => {

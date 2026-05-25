@@ -2,6 +2,14 @@
 
 Django 5 + Django REST Framework + SimpleJWT backend for AgriNexis.
 
+## Local ports
+
+| Service | Port |
+|---------|------|
+| **Backend (this server)** | 8000 |
+| Web client (`../client`) | 8001 |
+| Mobile Expo (`../mobile`) | 8002 |
+
 ## Requirements
 
 - Python 3.11+
@@ -40,7 +48,7 @@ Run migrations and seed the admin user:
 ```bash
 python manage.py migrate
 python manage.py seed_admin
-python manage.py runserver 8000
+python manage.py runserver 0.0.0.0:8000
 ```
 
 Django admin (session login for `ADMIN` users): http://localhost:8000/admin/
@@ -114,7 +122,8 @@ See `.env.example` for all keys. Never commit `.env` or real passwords.
 |----------|---------|
 | `DJANGO_SECRET_KEY` | Secret key |
 | `DB_*` | MySQL connection |
-| `CORS_ALLOWED_ORIGINS` | Frontend origins (Vite default `http://localhost:5173`) |
+| `CORS_ALLOW_ALL_ORIGINS` | `True` (default) allows any origin; set `False` and use `CORS_ALLOWED_ORIGINS` in production |
+| `CORS_ALLOWED_ORIGINS` | Comma-separated allowlist when `CORS_ALLOW_ALL_ORIGINS=False` |
 | `ADMIN_EMAIL` / `ADMIN_PASSWORD` / `ADMIN_FULL_NAME` | `seed_admin` command |
 
 ## Project layout
@@ -131,7 +140,7 @@ Future modules (AI Doctor, IoT, Community) can be added under `apps/`.
 
 ## Frontend integration
 
-The React client uses `VITE_API_BASE_URL` (empty in dev uses Vite proxy to `:8000`). See `client/.env.example`.
+The React client runs on **:8001** with `VITE_API_BASE_URL=http://localhost:8000` in `client/.env`. Mobile uses `EXPO_PUBLIC_API_BASE_URL` in `mobile/.env`.
 
 ## Notes
 

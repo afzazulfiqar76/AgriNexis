@@ -3,11 +3,8 @@ import {
   REFRESH_TOKEN_KEY,
 } from '@/constants/authStorage'
 
-const API_BASE =
-  import.meta.env.VITE_API_BASE_URL !== undefined &&
-  import.meta.env.VITE_API_BASE_URL !== ''
-    ? import.meta.env.VITE_API_BASE_URL
-    : ''
+/** Set in client/.env — e.g. http://localhost:8000 */
+const API_BASE = (import.meta.env.VITE_API_BASE_URL ?? '').trim().replace(/\/$/, '')
 
 function getAccessToken() {
   return localStorage.getItem(ACCESS_TOKEN_KEY)

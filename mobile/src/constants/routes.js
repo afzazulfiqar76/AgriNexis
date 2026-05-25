@@ -1,0 +1,17 @@
+export const ROUTES = {
+  HOME: 'Home',
+  SIGN_IN: 'Login',
+  SIGN_UP: 'Signup',
+  DASHBOARD: 'Dashboard',
+  AI_DOCTOR: 'AiDoctor',
+  IOT_SENSORS: 'IotSensors',
+  COMMUNITY: 'Community',
+  PROFILE: 'Profile',
+  NOTIFICATIONS: 'Notifications',
+  CONTACT: 'Contact',
+  DOCUMENTATION: 'Documentation',
+  PRIVACY_POLICY: 'PrivacyPolicy',
+  FAQS: 'FAQs',
+  PUBLIC: 'Public',
+  ADMIN: 'Admin',
+}
