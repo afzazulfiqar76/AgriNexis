@@ -1,9 +1,10 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { tokenStorage } from '@/lib/apiClient'
+import { showSessionExpired } from '@/lib/toast'
 import {
   bootstrapSession,
   loginRequest,
   logoutRequest,
-  readStoredUser,
   registerRequest,
 } from '@/services/authApi'
 
@@ -17,17 +18,22 @@ export function AuthProvider({ children }) {
     let cancelled = false
 
     async function init() {
-      const stored = readStoredUser()
-      if (stored) setUser(stored)
+      const hadToken = Boolean(tokenStorage.getAccessToken())
 
       try {
         const current = await bootstrapSession()
-        if (!cancelled && current) setUser(current)
-        if (!cancelled && !current) setUser(null)
+        if (!cancelled && current) {
+          setUser(current)
+        } else if (!cancelled) {
+          setUser(null)
+          if (hadToken) {
+            queueMicrotask(() => showSessionExpired())
+          }
+        }
       } catch {
         if (!cancelled) setUser(null)
       } finally {
-        if (!cancelled) setIsLoading(false)
+        setIsLoading(false)
       }
     }
 

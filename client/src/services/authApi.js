@@ -71,6 +71,17 @@ export async function fetchCurrentUser() {
   return mapped
 }
 
+const BOOTSTRAP_TIMEOUT_MS = 8000
+
+function withTimeout(promise, ms) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('Auth bootstrap timed out')), ms)
+    }),
+  ])
+}
+
 export async function bootstrapSession() {
   const access = tokenStorage.getAccessToken()
   if (!access) {
@@ -78,7 +89,7 @@ export async function bootstrapSession() {
     return null
   }
   try {
-    return await fetchCurrentUser()
+    return await withTimeout(fetchCurrentUser(), BOOTSTRAP_TIMEOUT_MS)
   } catch {
     clearStoredSession()
     return null

@@ -4,8 +4,11 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { InputField } from '@/components/forms/InputField'
 import { PasswordField } from '@/components/forms/PasswordField'
+import { AUTH_MESSAGES } from '@/constants/authMessages'
 import { ROUTES } from '@/constants/routes'
 import { useAuth } from '@/contexts/AuthContext'
+import { showAuthApiError, showError, showSuccess } from '@/lib/toast'
+import { validateSignUp } from '@/utils/authValidation'
 
 const initialValues = {
   fullName: '',
@@ -17,22 +20,16 @@ const initialValues = {
 
 export function SignUpForm() {
   const [values, setValues] = useState(initialValues)
-  const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const { register } = useAuth()
   const navigate = useNavigate()
 
   async function handleSubmit(event) {
     event.preventDefault()
-    setError('')
 
-    if (values.password !== values.confirmPassword) {
-      setError('Passwords do not match.')
-      return
-    }
-
-    if (!values.agreedToTerms) {
-      setError('Please agree to the Terms of Service and Privacy Policy.')
+    const validation = validateSignUp(values)
+    if (!validation.ok) {
+      showError(validation.message)
       return
     }
 
@@ -45,8 +42,9 @@ export function SignUpForm() {
         password: values.password,
       })
       navigate(ROUTES.HOME)
+      queueMicrotask(() => showSuccess(AUTH_MESSAGES.success.register))
     } catch (err) {
-      setError(err.message || 'Registration failed. Please try again.')
+      showAuthApiError(err)
     } finally {
       setSubmitting(false)
     }
@@ -54,12 +52,6 @@ export function SignUpForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
-      {error ? (
-        <p className="rounded-lg bg-error/10 px-3 py-2 text-sm text-error" role="alert">
-          {error}
-        </p>
-      ) : null}
-
       <InputField
         id="full-name"
         name="fullName"

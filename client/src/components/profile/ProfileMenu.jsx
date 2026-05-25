@@ -2,8 +2,10 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ProfileDropdown } from '@/components/profile/ProfileDropdown'
 import { Avatar } from '@/components/ui/Avatar'
+import { AUTH_MESSAGES } from '@/constants/authMessages'
 import { ROUTES } from '@/constants/routes'
 import { useAuth } from '@/contexts/AuthContext'
+import { showSuccess } from '@/lib/toast'
 import { useClickOutside } from '@/hooks/useClickOutside'
 import { cn } from '@/utils/cn'
 
@@ -34,6 +36,7 @@ export function ProfileMenu({ compact = false }) {
   async function handleLogout() {
     await logout()
     navigate(ROUTES.SIGN_IN)
+    queueMicrotask(() => showSuccess(AUTH_MESSAGES.success.logout))
   }
 
   return (

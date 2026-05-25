@@ -1,6 +1,8 @@
 import { useCallback, useMemo, useState } from 'react'
 import { ADMIN_PROFILE_DEFAULTS } from '@/constants/admin/adminProfile'
+import { AUTH_MESSAGES } from '@/constants/authMessages'
 import { useAuth } from '@/contexts/AuthContext'
+import { showSuccess } from '@/lib/toast'
 import { joinFullName, splitFullName } from '@/utils/splitFullName'
 
 function buildProfile(user, overrides) {
@@ -60,6 +62,7 @@ export function useAdminProfile() {
     await new Promise((resolve) => setTimeout(resolve, 400))
     setIsSaving(false)
     setPasswordOpen(false)
+    showSuccess(AUTH_MESSAGES.success.changesSaved)
   }, [])
 
   return {

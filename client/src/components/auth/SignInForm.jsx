@@ -4,10 +4,13 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { InputField } from '@/components/forms/InputField'
 import { PasswordField } from '@/components/forms/PasswordField'
+import { getLoginSuccessMessage } from '@/constants/authMessages'
 import { USER_ROLES } from '@/constants/auth'
 import { ADMIN_ROUTES } from '@/constants/adminRoutes'
 import { ROUTES } from '@/constants/routes'
 import { useAuth } from '@/contexts/AuthContext'
+import { showAuthApiError, showError, showSuccess } from '@/lib/toast'
+import { validateSignIn } from '@/utils/authValidation'
 
 const initialValues = {
   email: '',
@@ -17,23 +20,30 @@ const initialValues = {
 
 export function SignInForm() {
   const [values, setValues] = useState(initialValues)
-  const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const { login } = useAuth()
   const navigate = useNavigate()
 
   async function handleSubmit(event) {
     event.preventDefault()
-    setError('')
+
+    const validation = validateSignIn(values)
+    if (!validation.ok) {
+      showError(validation.message)
+      return
+    }
+
     setSubmitting(true)
 
     try {
       const mapped = await login(values.email.trim(), values.password)
-      navigate(
-        mapped.role === USER_ROLES.ADMIN ? ADMIN_ROUTES.DASHBOARD : ROUTES.HOME,
-      )
+      const destination =
+        mapped.role === USER_ROLES.ADMIN ? ADMIN_ROUTES.DASHBOARD : ROUTES.HOME
+
+      navigate(destination)
+      queueMicrotask(() => showSuccess(getLoginSuccessMessage(mapped)))
     } catch (err) {
-      setError(err.message || 'Sign in failed. Check your email and password.')
+      showAuthApiError(err)
     } finally {
       setSubmitting(false)
     }
@@ -41,12 +51,6 @@ export function SignInForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
-      {error ? (
-        <p className="rounded-lg bg-error/10 px-3 py-2 text-sm text-error" role="alert">
-          {error}
-        </p>
-      ) : null}
-
       <InputField
         id="email"
         name="email"
