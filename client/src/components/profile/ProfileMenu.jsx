@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ProfileDropdown } from '@/components/profile/ProfileDropdown'
 import { Avatar } from '@/components/ui/Avatar'
-import { FARMER_MOCK_USER } from '@/constants/auth'
 import { ROUTES } from '@/constants/routes'
 import { useAuth } from '@/contexts/AuthContext'
 import { useClickOutside } from '@/hooks/useClickOutside'
@@ -13,7 +12,9 @@ export function ProfileMenu({ compact = false }) {
   const containerRef = useRef(null)
   const { user, logout } = useAuth()
   const navigate = useNavigate()
-  const profile = user ?? FARMER_MOCK_USER
+  if (!user) return null
+
+  const profile = user
 
   const close = useCallback(() => setOpen(false), [])
 
@@ -30,8 +31,8 @@ export function ProfileMenu({ compact = false }) {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [open, close])
 
-  function handleLogout() {
-    logout()
+  async function handleLogout() {
+    await logout()
     navigate(ROUTES.SIGN_IN)
   }
 

@@ -1,24 +1,24 @@
 import { useCallback, useMemo, useState } from 'react'
-import { ADMIN_MOCK_USER } from '@/constants/auth'
 import { ADMIN_PROFILE_DEFAULTS } from '@/constants/admin/adminProfile'
 import { useAuth } from '@/contexts/AuthContext'
 import { joinFullName, splitFullName } from '@/utils/splitFullName'
 
 function buildProfile(user, overrides) {
-  const base = user ?? ADMIN_MOCK_USER
-  const name = overrides.name ?? base.name
+  if (!user) return null
+
+  const name = overrides.name ?? user.name
   const { firstName, lastName } = splitFullName(name)
 
   return {
     ...ADMIN_PROFILE_DEFAULTS,
-    ...base,
+    ...user,
     ...overrides,
     name,
-    email: overrides.email ?? base.email,
-    role: base.role,
-    roleLabel: base.roleLabel,
-    initials: base.initials,
-    username: overrides.username ?? base.email,
+    email: overrides.email ?? user.email,
+    role: user.role,
+    roleLabel: user.roleLabel,
+    initials: user.initials,
+    username: overrides.username ?? user.email,
     firstName: overrides.firstName ?? firstName,
     lastName: overrides.lastName ?? lastName,
   }

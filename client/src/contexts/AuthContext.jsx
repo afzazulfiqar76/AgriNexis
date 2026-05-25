@@ -1,53 +1,57 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { AUTH_STORAGE_KEY } from '@/constants/auth'
-import { FARMER_MOCK_USER } from '@/constants/auth'
+import {
+  bootstrapSession,
+  loginRequest,
+  logoutRequest,
+  readStoredUser,
+  registerRequest,
+} from '@/services/authApi'
 
 const AuthContext = createContext(null)
 
-function readStoredAuth() {
-  try {
-    const raw = localStorage.getItem(AUTH_STORAGE_KEY)
-    if (!raw) return null
-    const parsed = JSON.parse(raw)
-    if (parsed?.isAuthenticated && parsed?.user) {
-      return parsed
-    }
-  } catch {
-    // ignore invalid storage
-  }
-  return null
-}
-
-function writeStoredAuth(state) {
-  if (state?.isAuthenticated && state?.user) {
-    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(state))
-  } else {
-    localStorage.removeItem(AUTH_STORAGE_KEY)
-  }
-}
-
 export function AuthProvider({ children }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const stored = readStoredAuth()
-    if (stored) {
-      setIsAuthenticated(true)
-      setUser(stored.user)
+    let cancelled = false
+
+    async function init() {
+      const stored = readStoredUser()
+      if (stored) setUser(stored)
+
+      try {
+        const current = await bootstrapSession()
+        if (!cancelled && current) setUser(current)
+        if (!cancelled && !current) setUser(null)
+      } catch {
+        if (!cancelled) setUser(null)
+      } finally {
+        if (!cancelled) setIsLoading(false)
+      }
+    }
+
+    init()
+    return () => {
+      cancelled = true
     }
   }, [])
 
-  const login = useCallback((nextUser = FARMER_MOCK_USER) => {
-    setIsAuthenticated(true)
-    setUser(nextUser)
-    writeStoredAuth({ isAuthenticated: true, user: nextUser })
+  const login = useCallback(async (email, password) => {
+    const mapped = await loginRequest(email, password)
+    setUser(mapped)
+    return mapped
   }, [])
 
-  const logout = useCallback(() => {
-    setIsAuthenticated(false)
+  const register = useCallback(async (payload) => {
+    const mapped = await registerRequest(payload)
+    setUser(mapped)
+    return mapped
+  }, [])
+
+  const logout = useCallback(async () => {
+    await logoutRequest()
     setUser(null)
-    writeStoredAuth(null)
   }, [])
 
   const updateUser = useCallback((partial) => {
@@ -55,26 +59,28 @@ export function AuthProvider({ children }) {
       if (!prev) return prev
       const next = { ...prev, ...partial }
       if (partial.name) {
-        const parts = partial.name.trim().split(/\s+/)
+        const parts = partial.name.trim().split(/\s+/).filter(Boolean)
         next.initials =
           parts.length >= 2
             ? `${parts[0][0]}${parts[1][0]}`.toUpperCase()
             : partial.name.slice(0, 2).toUpperCase()
       }
-      writeStoredAuth({ isAuthenticated: true, user: next })
+      localStorage.setItem('agrinexis.user', JSON.stringify(next))
       return next
     })
   }, [])
 
   const value = useMemo(
     () => ({
-      isAuthenticated,
       user,
+      isAuthenticated: Boolean(user),
+      isLoading,
       login,
+      register,
       logout,
       updateUser,
     }),
-    [isAuthenticated, user, login, logout, updateUser],
+    [user, isLoading, login, register, logout, updateUser],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

@@ -17,17 +17,49 @@ const initialValues = {
 
 export function SignUpForm() {
   const [values, setValues] = useState(initialValues)
-  const { login } = useAuth()
+  const [error, setError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const { register } = useAuth()
   const navigate = useNavigate()
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
-    login()
-    navigate(ROUTES.HOME)
+    setError('')
+
+    if (values.password !== values.confirmPassword) {
+      setError('Passwords do not match.')
+      return
+    }
+
+    if (!values.agreedToTerms) {
+      setError('Please agree to the Terms of Service and Privacy Policy.')
+      return
+    }
+
+    setSubmitting(true)
+
+    try {
+      await register({
+        fullName: values.fullName.trim(),
+        email: values.email.trim(),
+        password: values.password,
+      })
+      navigate(ROUTES.HOME)
+    } catch (err) {
+      setError(err.message || 'Registration failed. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+      {error ? (
+        <p className="rounded-lg bg-error/10 px-3 py-2 text-sm text-error" role="alert">
+          {error}
+        </p>
+      ) : null}
+
       <InputField
         id="full-name"
         name="fullName"
@@ -96,8 +128,8 @@ export function SignUpForm() {
         </span>
       </label>
 
-      <Button type="submit" className="h-12 w-full text-base">
-        Sign Up
+      <Button type="submit" className="h-12 w-full text-base" disabled={submitting}>
+        {submitting ? 'Creating account…' : 'Sign Up'}
       </Button>
     </form>
   )

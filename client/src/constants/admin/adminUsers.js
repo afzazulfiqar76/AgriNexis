@@ -1,4 +1,7 @@
-import { ACCOUNT_STATUS, ADMIN_CREDENTIALS, USER_ROLES } from '@/constants/auth'
+import { ACCOUNT_STATUS, USER_ROLES } from '@/constants/auth'
+
+/** Example admin row in mock user table (matches seed_admin default email). */
+const SEED_ADMIN_EMAIL = 'f2022065203@umt.edu.pk'
 
 export const INITIAL_ADMIN_USERS = [
   {
@@ -136,7 +139,7 @@ export const INITIAL_ADMIN_USERS = [
   {
     id: 'u12',
     fullName: 'Hassan Ahmad',
-    email: ADMIN_CREDENTIALS.email,
+    email: SEED_ADMIN_EMAIL,
     role: USER_ROLES.ADMIN,
     userType: 'Admin',
     status: ACCOUNT_STATUS.ACTIVE,

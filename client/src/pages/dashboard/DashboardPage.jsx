@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { BrainCircuit, Gauge, UsersRound } from 'lucide-react'
 import { InteractiveCard } from '@/components/ui/InteractiveCard'
-import { FARMER_MOCK_USER } from '@/constants/auth'
 import { ROUTES } from '@/constants/routes'
 import { useAuth } from '@/contexts/AuthContext'
 import { cn } from '@/utils/cn'
@@ -32,7 +31,10 @@ const QUICK_LINKS = [
 
 export function DashboardPage() {
   const { user } = useAuth()
-  const profile = user ?? FARMER_MOCK_USER
+
+  if (!user) return null
+
+  const profile = user
 
   return (
     <main className="min-h-dvh bg-base-200 px-4 py-10 sm:px-6 lg:px-8">

@@ -14,6 +14,7 @@ import { DocumentationPage } from '@/pages/public/DocumentationPage'
 import { PrivacyPolicyPage } from '@/pages/public/PrivacyPolicyPage'
 import { FaqsPage } from '@/pages/public/FaqsPage'
 import { ProtectedRoute } from '@/routes/ProtectedRoute'
+import { GuestRoute } from '@/routes/GuestRoute'
 import { AdminRoute } from '@/routes/AdminRoute'
 import { AdminLayout } from '@/app/layouts/AdminLayout'
 import { AdminDashboardPage } from '@/pages/admin/AdminDashboardPage'
@@ -33,43 +34,55 @@ export const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
+        element: <GuestRoute />,
+        children: [
+          { path: ROUTES.SIGN_IN, element: <SignInPage /> },
+          { path: ROUTES.SIGN_UP, element: <SignUpPage /> },
+        ],
+      },
+      {
         element: <MainLayout />,
         children: [
-          { index: true, element: <HomePage /> },
-          { path: ROUTES.AI_DOCTOR, element: <AiDoctorPage /> },
-          { path: ROUTES.IOT_SENSORS, element: <IotSensorsPage /> },
-          { path: ROUTES.COMMUNITY, element: <CommunityPage /> },
           { path: ROUTES.CONTACT, element: <ContactPage /> },
           { path: ROUTES.DOCUMENTATION, element: <DocumentationPage /> },
           { path: ROUTES.PRIVACY_POLICY, element: <PrivacyPolicyPage /> },
           { path: ROUTES.FAQS, element: <FaqsPage /> },
         ],
       },
-      { path: ROUTES.SIGN_IN, element: <SignInPage /> },
-      { path: ROUTES.SIGN_UP, element: <SignUpPage /> },
       {
         element: <ProtectedRoute />,
-        children: [{ path: ROUTES.DASHBOARD, element: <DashboardPage /> }],
-      },
-      {
-        path: 'admin',
-        element: <AdminRoute />,
         children: [
           {
-            element: <AdminLayout />,
+            element: <MainLayout />,
             children: [
-              { index: true, element: <Navigate to="dashboard" replace /> },
-              { path: 'dashboard', element: <AdminDashboardPage /> },
-              { path: 'users', element: <AdminUsersPage /> },
-              { path: 'farms', element: <AdminFarmsPage /> },
-              { path: 'ai-doctor', element: <AdminAiDoctorPage /> },
-              { path: 'iot-monitoring', element: <AdminIotMonitoringPage /> },
-              { path: 'community', element: <AdminCommunityPage /> },
-              { path: 'analytics', element: <AdminAnalyticsPage /> },
-              { path: 'notifications', element: <AdminNotificationsPage /> },
-              { path: 'support', element: <AdminSupportPage /> },
-              { path: 'settings', element: <AdminSettingsPage /> },
-              { path: 'profile', element: <AdminProfilePage /> },
+              { index: true, element: <HomePage /> },
+              { path: ROUTES.AI_DOCTOR, element: <AiDoctorPage /> },
+              { path: ROUTES.IOT_SENSORS, element: <IotSensorsPage /> },
+              { path: ROUTES.COMMUNITY, element: <CommunityPage /> },
+              { path: ROUTES.DASHBOARD, element: <DashboardPage /> },
+            ],
+          },
+          {
+            path: 'admin',
+            element: <AdminRoute />,
+            children: [
+              {
+                element: <AdminLayout />,
+                children: [
+                  { index: true, element: <Navigate to="dashboard" replace /> },
+                  { path: 'dashboard', element: <AdminDashboardPage /> },
+                  { path: 'users', element: <AdminUsersPage /> },
+                  { path: 'farms', element: <AdminFarmsPage /> },
+                  { path: 'ai-doctor', element: <AdminAiDoctorPage /> },
+                  { path: 'iot-monitoring', element: <AdminIotMonitoringPage /> },
+                  { path: 'community', element: <AdminCommunityPage /> },
+                  { path: 'analytics', element: <AdminAnalyticsPage /> },
+                  { path: 'notifications', element: <AdminNotificationsPage /> },
+                  { path: 'support', element: <AdminSupportPage /> },
+                  { path: 'settings', element: <AdminSettingsPage /> },
+                  { path: 'profile', element: <AdminProfilePage /> },
+                ],
+              },
             ],
           },
         ],
