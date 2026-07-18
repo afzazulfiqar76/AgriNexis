@@ -6,7 +6,7 @@ import { FooterLinkColumn } from '@/components/layout/footer/FooterLinkColumn'
 
 export function SiteFooter() {
   return (
-    <footer className="relative overflow-hidden bg-footer text-slate-400">
+    <footer data-site-footer className="relative overflow-hidden bg-footer text-slate-400">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-500/40 to-transparent"

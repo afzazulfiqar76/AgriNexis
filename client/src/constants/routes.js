@@ -10,5 +10,6 @@ export const ROUTES = {
   DOCUMENTATION: '/documentation',
   PRIVACY_POLICY: '/privacy-policy',
   FAQS: '/faqs',
+  AICHAT: '/aichat',
   ADMIN: '/admin',
 }

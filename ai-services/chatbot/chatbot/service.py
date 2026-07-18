@@ -1,0 +1,91 @@
+import logging
+import os
+from dataclasses import dataclass
+
+from chatbot.ai_config import log_provider_selection, openai_api_key_configured
+from chatbot.business_rules import check_privacy_request, sanitize_response
+from chatbot.intent import ChatIntent, classify_intent
+from chatbot.prompts import build_system_prompt
+from chatbot.providers.openai_provider import OpenAIProvider
+from chatbot.utils import AIServiceError, normalize_message, truncate_history
+
+logger = logging.getLogger(__name__)
+
+
+@dataclass
+class ChatResponse:
+    text: str
+    intent: str
+
+
+def _support_email() -> str:
+    try:
+        from django.conf import settings
+
+        return getattr(settings, 'SUPPORT_EMAIL', 'support@agrinexis.com')
+    except Exception:
+        return 'support@agrinexis.com'
+
+
+def get_provider() -> OpenAIProvider:
+    if not openai_api_key_configured():
+        raise AIServiceError(
+            'The AI service is temporarily unavailable.',
+            status_code=503,
+            error_code='AI_UNAVAILABLE',
+        )
+    model = os.environ.get('OPENAI_MODEL', 'gpt-4o-mini')
+    provider = OpenAIProvider(model=model)
+    log_provider_selection(purpose='chat', provider_class='OpenAIProvider', model=model)
+    return provider
+
+
+def _max_tokens() -> int:
+    raw = os.environ.get('OPENAI_MAX_TOKENS_CHAT', '1024').strip()
+    try:
+        return max(64, int(raw))
+    except ValueError:
+        return 1024
+
+
+def generate_chat_response(
+    message: str,
+    history: list[dict] | None = None,
+) -> ChatResponse:
+    text = normalize_message(message)
+    if not text:
+        raise AIServiceError('Message cannot be empty.', status_code=400)
+
+    support_email = _support_email()
+    privacy = check_privacy_request(text, support_email=support_email)
+    if privacy.blocked:
+        logger.info('chat.privacy_refusal reason=%s', privacy.reason)
+        return ChatResponse(text=privacy.response, intent='privacy_refusal')
+
+    intent_result = classify_intent(text)
+    intent = intent_result.intent
+    system = build_system_prompt(
+        support_email=support_email,
+        navigation_focus=(intent == ChatIntent.NAVIGATION),
+    )
+
+    prior = truncate_history(history)
+    messages = prior + [{'role': 'user', 'content': text}]
+
+    provider = get_provider()
+    response_text = provider.generate_messages(
+        messages,
+        system=system,
+        max_tokens=_max_tokens(),
+        temperature=0.5,
+    )
+
+    safe_text = sanitize_response(response_text)
+
+    logger.info(
+        'chat.response intent=%s history_turns=%s sanitized=%s',
+        intent.value,
+        len(prior),
+        safe_text != response_text,
+    )
+    return ChatResponse(text=safe_text, intent=intent.value)

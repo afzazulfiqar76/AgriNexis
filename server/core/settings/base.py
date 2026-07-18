@@ -1,4 +1,5 @@
 import os
+import sys
 from datetime import timedelta
 from pathlib import Path
 
@@ -6,6 +7,12 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 load_dotenv(BASE_DIR / '.env')
+
+# Repo-root `ai-services/chatbot` → importable as package `chatbot`
+_REPO_ROOT = BASE_DIR.parent
+_AI_CHATBOT = _REPO_ROOT / 'ai-services' / 'chatbot'
+if str(_AI_CHATBOT) not in sys.path:
+    sys.path.insert(0, str(_AI_CHATBOT))
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-change-me')
 DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() in ('1', 'true', 'yes')
@@ -28,7 +35,10 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'apps.users',
     'apps.authentication',
+    'apps.chatbot',
 ]
+
+SUPPORT_EMAIL = os.getenv('SUPPORT_EMAIL', 'support@agrinexis.com')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
