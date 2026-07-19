@@ -1,4 +1,4 @@
-# AgriNexis Chatbot (AI service)
+﻿# AgriNexis Chatbot (AI service)
 
 Website assistant logic for AgriNexis. Django mounts thin views at `/api/chat/` and imports this package.
 
