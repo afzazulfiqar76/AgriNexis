@@ -26,7 +26,7 @@ export function FaqsScreen() {
   }, [query, category])
 
   return (
-    <ScreenContainer>
+    <ScreenContainer edges={['left', 'right', 'bottom']}>
       <Text style={styles.label}>{FAQ_PAGE.label}</Text>
       <Text style={styles.title}>{FAQ_PAGE.title}</Text>
       <Text style={styles.sub}>{FAQ_PAGE.subtitle}</Text>
