@@ -22,7 +22,7 @@ const meta = ADMIN_PAGE_TITLES[ADMIN_ROUTES.DASHBOARD]
 
 export function AdminDashboardScreen() {
   return (
-    <ScreenContainer>
+    <ScreenContainer edges={['left', 'right', 'bottom']}>
       <AdminPageHeader title={meta.title} subtitle={meta.subtitle} />
       <View style={styles.stats}>
         {ADMIN_DASHBOARD_STATS.map((s) => (
