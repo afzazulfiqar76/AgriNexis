@@ -1,4 +1,5 @@
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import {
   BarChart3,
   Bell,
@@ -15,7 +16,7 @@ import { AgriNexisLogo } from '../AgriNexisLogo'
 import { ADMIN_NAV_ITEMS } from '../../constants/adminNavigation'
 import { colors, fontFamily } from '../../constants/theme'
 import { adminNavActive } from '../../constants/uiStyles'
-import { spacing } from '../../constants/spacing'
+import { spacing, touchTarget } from '../../constants/spacing'
 
 const ICONS = {
   'layout-dashboard': LayoutDashboard,
@@ -32,61 +33,90 @@ const ICONS = {
 
 export function AdminDrawerContent({ state, navigation }) {
   return (
-    <ScrollView style={styles.wrap} contentContainerStyle={styles.content}>
-      <View style={styles.brand}>
-        <AgriNexisLogo size={40} />
-        <View>
-          <Text style={styles.brandName}>AgriNexis</Text>
-          <Text style={styles.brandSub}>Admin Panel</Text>
+    <SafeAreaView style={styles.safe} edges={['top', 'bottom', 'left']}>
+      <ScrollView style={styles.wrap} contentContainerStyle={styles.content}>
+        <View style={styles.brand}>
+          <AgriNexisLogo size={40} />
+          <View style={styles.brandText}>
+            <Text style={styles.brandName}>AgriNexis</Text>
+            <Text style={styles.brandSub}>Admin Panel</Text>
+          </View>
         </View>
-      </View>
-      {ADMIN_NAV_ITEMS.map((item) => {
-        const active = state.routes[state.index]?.name === item.route
-        const Icon = ICONS[item.icon] ?? LayoutDashboard
-        return (
-          <Pressable
-            key={item.route}
-            style={[styles.item, active && adminNavActive]}
-            onPress={() => navigation.navigate(item.route)}
-          >
-            <Icon size={20} color={active ? colors.primary : colors.gray600} strokeWidth={2} />
-            <Text style={[styles.itemLabel, active && styles.itemLabelActive]}>{item.label}</Text>
-          </Pressable>
-        )
-      })}
-      <Pressable style={styles.back} onPress={() => navigation.getParent()?.goBack()}>
-        <Text style={styles.backText}>Back to site</Text>
-      </Pressable>
-    </ScrollView>
+        {ADMIN_NAV_ITEMS.map((item) => {
+          const active = state.routes[state.index]?.name === item.route
+          const Icon = ICONS[item.icon] ?? LayoutDashboard
+          return (
+            <Pressable
+              key={item.route}
+              style={[styles.item, active && adminNavActive]}
+              onPress={() => navigation.navigate(item.route)}
+              accessibilityRole="button"
+              accessibilityState={{ selected: active }}
+              accessibilityLabel={item.label}
+            >
+              <Icon size={20} color={active ? colors.primary : colors.gray600} strokeWidth={2} />
+              <Text style={[styles.itemLabel, active && styles.itemLabelActive]} numberOfLines={1}>
+                {item.label}
+              </Text>
+            </Pressable>
+          )
+        })}
+        <Pressable
+          style={styles.back}
+          onPress={() => navigation.getParent()?.goBack()}
+          accessibilityRole="button"
+          accessibilityLabel="Back to site"
+        >
+          <Text style={styles.backText}>Back to site</Text>
+        </Pressable>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  wrap: { flex: 1, backgroundColor: colors.base100 },
-  content: { paddingTop: spacing.xl, paddingHorizontal: spacing.sm, paddingBottom: spacing.xl },
+  safe: { flex: 1, backgroundColor: colors.base100 },
+  wrap: { flex: 1 },
+  content: {
+    paddingTop: spacing.md,
+    paddingHorizontal: spacing.sm,
+    paddingBottom: spacing.xl,
+  },
   brand: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,
     paddingHorizontal: spacing.sm,
-    paddingBottom: spacing.lg,
+    paddingBottom: spacing.md,
     borderBottomWidth: 1,
     borderBottomColor: colors.gray100,
     marginBottom: spacing.md,
   },
+  brandText: { flex: 1, minWidth: 0 },
   brandName: { fontSize: 14, fontFamily: fontFamily.bold, color: colors.emerald800 },
   brandSub: { fontSize: 12, fontFamily: fontFamily.regular, color: colors.gray500 },
   item: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,
-    paddingVertical: 10,
+    minHeight: touchTarget,
+    paddingVertical: spacing.sm,
     paddingHorizontal: spacing.sm,
     borderRadius: 12,
     marginBottom: 2,
   },
-  itemLabel: { fontSize: 14, fontFamily: fontFamily.medium, color: colors.gray600 },
+  itemLabel: {
+    flex: 1,
+    fontSize: 14,
+    fontFamily: fontFamily.medium,
+    color: colors.gray600,
+  },
   itemLabelActive: { color: colors.primary, fontFamily: fontFamily.semibold },
-  back: { marginTop: spacing.lg, padding: spacing.sm },
+  back: {
+    marginTop: spacing.lg,
+    padding: spacing.sm,
+    minHeight: touchTarget,
+    justifyContent: 'center',
+  },
   backText: { fontSize: 12, fontFamily: fontFamily.medium, color: colors.gray500 },
 })

@@ -1,4 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Home, BrainCircuit, Gauge, Users, User } from 'lucide-react-native'
 import { colors, fontFamily } from '../constants/theme'
 import { HomeScreen } from '../screens/main/HomeScreen'
@@ -18,6 +19,10 @@ const TAB_ICONS = {
 }
 
 export function AppTabs() {
+  const insets = useSafeAreaInsets()
+  const bottomPad = Math.max(insets.bottom, 8)
+  const tabHeight = 52 + bottomPad
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => {
@@ -26,18 +31,27 @@ export function AppTabs() {
           headerShown: false,
           tabBarActiveTintColor: colors.primary,
           tabBarInactiveTintColor: colors.textMuted,
-          tabBarLabelStyle: { fontFamily: fontFamily.medium, fontSize: 11 },
+          tabBarLabelStyle: {
+            fontFamily: fontFamily.medium,
+            fontSize: 11,
+            marginBottom: 2,
+          },
           tabBarStyle: {
             backgroundColor: colors.base100,
             borderTopColor: colors.border,
-            paddingTop: 4,
-            height: 60,
+            borderTopWidth: 1,
+            paddingTop: 6,
+            paddingBottom: bottomPad,
+            height: tabHeight,
           },
-          tabBarIcon: ({ color, size }) => <Icon size={size} color={color} strokeWidth={2} />,
+          tabBarItemStyle: { paddingTop: 2 },
+          tabBarIcon: ({ color, focused }) => (
+            <Icon size={22} color={color} strokeWidth={focused ? 2.4 : 2} />
+          ),
         }
       }}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }} />
       <Tab.Screen name="AiDoctor" component={AiDoctorScreen} options={{ title: 'AI Doctor' }} />
       <Tab.Screen name="IotSensors" component={IotSensorsScreen} options={{ title: 'IoT' }} />
       <Tab.Screen name="Community" component={CommunityScreen} />
