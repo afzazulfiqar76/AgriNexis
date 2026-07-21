@@ -3,7 +3,7 @@ import {
   REFRESH_TOKEN_KEY,
 } from '@/constants/authStorage'
 
-/** Set in client/.env — e.g. http://localhost:8000 */
+/** Set in client/.env — e.g. http://localhost:8003 */
 const API_BASE = (import.meta.env.VITE_API_BASE_URL ?? '').trim().replace(/\/$/, '')
 
 function getAccessToken() {

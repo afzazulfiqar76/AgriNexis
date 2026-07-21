@@ -6,7 +6,7 @@ import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '../constants/storage'
 const API_BASE =
   process.env.EXPO_PUBLIC_API_BASE_URL ??
   Constants.expoConfig?.extra?.apiBaseUrl ??
-  'http://localhost:8000'
+  'http://localhost:8003'
 
 export const api = axios.create({
   baseURL: API_BASE,

@@ -25,7 +25,7 @@ export default {
       favicon: './assets/favicon.png',
     },
     extra: {
-      apiBaseUrl: process.env.EXPO_PUBLIC_API_BASE_URL ?? 'http://localhost:8000',
+      apiBaseUrl: process.env.EXPO_PUBLIC_API_BASE_URL ?? 'http://localhost:8003',
     },
     plugins: ['expo-font'],
   },

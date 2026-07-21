@@ -4,7 +4,7 @@ import { AlertTriangle, MessageCircle, Send, X } from 'lucide-react'
 import { ChatMessageContent } from '@/components/chat/ChatMessageContent'
 import { useAuth } from '@/contexts/AuthContext'
 import { useChatSession } from '@/hooks/useChatSession'
-import { CHATBOT_NAME, getChatWelcomeContent } from '@/utils/chatWelcome'
+import { CHATBOT_NAME, getChatWelcomeContent, MODEL_UNAVAILABLE_MESSAGE } from '@/utils/chatWelcome'
 
 const STORAGE_PREFIX = 'agrinexis'
 
@@ -167,8 +167,8 @@ function ChatPanel({ onClose }) {
                 </span>
               )}
               {apiOnline === false && (
-                <span className="flex items-center gap-1.5 text-xs font-medium text-error">
-                  <span className="size-2 rounded-full bg-error" />
+                <span className="flex items-center gap-1.5 text-xs font-semibold text-red-600">
+                  <span className="size-2.5 shrink-0 rounded-full bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.75)]" />
                   Offline
                 </span>
               )}
@@ -195,6 +195,15 @@ function ChatPanel({ onClose }) {
       </header>
 
       <main className="relative flex-1 space-y-4 overflow-y-auto bg-base-200/40 p-4 [scrollbar-width:thin]">
+        {apiOnline === false ? (
+          <div
+            className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 px-3 py-2.5 text-sm text-red-800"
+            role="status"
+          >
+            <AlertTriangle className="mt-0.5 size-4 shrink-0 text-red-500" aria-hidden />
+            <p className="font-medium">{MODEL_UNAVAILABLE_MESSAGE}</p>
+          </div>
+        ) : null}
         {!restoreComplete ? (
           <p className="text-center text-sm text-gray-500">Loading conversation…</p>
         ) : (

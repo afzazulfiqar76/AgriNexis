@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Menu, Plus, Send, Sprout, X } from 'lucide-react'
+import { Menu, Plus, Send, Sprout, X, AlertTriangle } from 'lucide-react'
 import { ChatMessageContent } from '@/components/chat/ChatMessageContent'
 import { useAuth } from '@/contexts/AuthContext'
 import { useChatSession } from '@/hooks/useChatSession'
 import { ROUTES } from '@/constants/routes'
-import { CHATBOT_NAME, getChatWelcomeContent } from '@/utils/chatWelcome'
+import { CHATBOT_NAME, getChatWelcomeContent, MODEL_UNAVAILABLE_MESSAGE } from '@/utils/chatWelcome'
 
 const SUGGESTIONS = [
   'What is AgriNexis?',
@@ -141,11 +141,23 @@ export function AiChatPage() {
                 <h2 className="text-sm font-bold tracking-tight lg:text-lg">{CHATBOT_NAME}</h2>
                 <div className="flex items-center gap-1.5">
                   <span
-                    className={`size-1.5 rounded-full ${
-                      apiOnline === false ? 'bg-error' : 'bg-primary animate-pulse'
+                    className={`size-2 shrink-0 rounded-full ${
+                      apiOnline === false
+                        ? 'bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.75)]'
+                        : apiOnline === null
+                          ? 'bg-gray-400 animate-pulse'
+                          : 'bg-primary animate-pulse'
                     }`}
                   />
-                  <span className="text-[10px] font-bold uppercase text-primary">
+                  <span
+                    className={`text-[10px] font-bold uppercase ${
+                      apiOnline === false
+                        ? 'text-red-600'
+                        : apiOnline === null
+                          ? 'text-gray-500'
+                          : 'text-primary'
+                    }`}
+                  >
                     {apiOnline === false ? 'Offline' : apiOnline === null ? 'Checking…' : 'Online'}
                   </span>
                 </div>
@@ -155,6 +167,15 @@ export function AiChatPage() {
         </header>
 
         <div className="mx-auto h-[73vh] w-full max-w-5xl space-y-5 overflow-y-scroll p-3 pt-[6rem] lg:p-8 lg:pt-[7rem]">
+          {apiOnline === false ? (
+            <div
+              className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"
+              role="status"
+            >
+              <AlertTriangle className="mt-0.5 size-4 shrink-0 text-red-500" aria-hidden />
+              <p className="font-medium">{MODEL_UNAVAILABLE_MESSAGE}</p>
+            </div>
+          ) : null}
           {!restoreComplete ? (
             <p className="text-center text-sm text-gray-500">Loading conversation…</p>
           ) : (

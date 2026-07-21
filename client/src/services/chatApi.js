@@ -18,7 +18,7 @@ export class ChatError extends Error {
 const ERROR_MESSAGES = {
   AI_TIMEOUT: 'AI response generation is taking longer than expected. Please try again.',
   CATALOG_UNAVAILABLE: 'I cannot access product data right now. Please try again later.',
-  AI_UNAVAILABLE: 'The AI service is temporarily unavailable.',
+  AI_UNAVAILABLE: 'The model is currently unavailable. Please try again later.',
   RATE_LIMIT: 'OpenAI rate limit exceeded. Try again shortly.',
 }
 
@@ -29,16 +29,28 @@ export function mapChatErrorCode(code, fallbackDetail) {
 }
 
 /**
- * Lightweight reachability check (no LLM call).
+ * Health check — online only when the AI model backend is ready (ai_ready).
  */
 export async function checkChatApiHealth(signal) {
   try {
     const res = await fetch(CHAT_URL, { method: 'GET', signal })
-    if (res.status === 405) return true
-    if (res.ok) return true
     if (res.status === 404) return false
+    if (res.status === 503) return false
+    if (!res.ok && res.status !== 405) return false
+
     const ct = res.headers.get('content-type') || ''
-    return ct.includes('application/json')
+    if (ct.includes('application/json')) {
+      try {
+        const data = await res.json()
+        if (data?.ai_ready === false || data?.status === 'unavailable') return false
+        if (data?.error_code === 'AI_UNAVAILABLE') return false
+      } catch {
+        // ignore parse errors; fall through on HTTP ok
+      }
+    }
+
+    if (res.status === 405) return true
+    return res.ok
   } catch {
     return false
   }

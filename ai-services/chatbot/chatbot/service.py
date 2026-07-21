@@ -29,8 +29,8 @@ def _support_email() -> str:
 
 def get_provider() -> OpenAIProvider:
     if not openai_api_key_configured():
-        raise AIServiceError(
-            'The AI service is temporarily unavailable.',
+                raise AIServiceError(
+            'The model is currently unavailable. Please try again later.',
             status_code=503,
             error_code='AI_UNAVAILABLE',
         )
@@ -56,6 +56,9 @@ def generate_chat_response(
     if not text:
         raise AIServiceError('Message cannot be empty.', status_code=400)
 
+    # Fail before privacy/off-scope canned replies when the AI backend is not configured.
+    provider = get_provider()
+
     support_email = _support_email()
     privacy = check_privacy_request(text, support_email=support_email)
     if privacy.blocked:
@@ -72,7 +75,6 @@ def generate_chat_response(
     prior = truncate_history(history)
     messages = prior + [{'role': 'user', 'content': text}]
 
-    provider = get_provider()
     response_text = provider.generate_messages(
         messages,
         system=system,

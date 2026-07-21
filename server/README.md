@@ -6,9 +6,11 @@ Django 5 + Django REST Framework + SimpleJWT backend for AgriNexis.
 
 | Service | Port |
 |---------|------|
-| **Backend (this server)** | 8000 |
+| **Backend (this server)** | 8003 |
 | Web client (`../client`) | 8001 |
 | Mobile Expo (`../mobile`) | 8002 |
+
+> **Multi-project dev:** If [FYP](D:/FYP) or another Django app uses **:8000**, keep AgriNexis on **:8003** so both can run at once.
 
 ## Requirements
 
@@ -48,10 +50,10 @@ Run migrations and seed the admin user:
 ```bash
 python manage.py migrate
 python manage.py seed_admin
-python manage.py runserver 0.0.0.0:8000
+python manage.py runserver 127.0.0.1:8003
 ```
 
-Django admin (session login for `ADMIN` users): http://localhost:8000/admin/
+Django admin (session login for `ADMIN` users): http://localhost:8003/admin/
 
 ## SQLite fallback (local dev)
 
@@ -94,7 +96,7 @@ pymysql.install_as_MySQLdb()
 Register:
 
 ```bash
-curl -X POST http://localhost:8000/api/auth/register/ \
+curl -X POST http://localhost:8003/api/auth/register/ \
   -H "Content-Type: application/json" \
   -d '{"full_name":"Jane Farmer","email":"jane@example.com","password":"SecurePass123!"}'
 ```
@@ -102,7 +104,7 @@ curl -X POST http://localhost:8000/api/auth/register/ \
 Login:
 
 ```bash
-curl -X POST http://localhost:8000/api/auth/login/ \
+curl -X POST http://localhost:8003/api/auth/login/ \
   -H "Content-Type: application/json" \
   -d '{"email":"f2022065203@umt.edu.pk","password":"YOUR_ADMIN_PASSWORD"}'
 ```
@@ -110,7 +112,7 @@ curl -X POST http://localhost:8000/api/auth/login/ \
 Me:
 
 ```bash
-curl http://localhost:8000/api/auth/me/ \
+curl http://localhost:8003/api/auth/me/ \
   -H "Authorization: Bearer <access_token>"
 ```
 
@@ -140,7 +142,7 @@ Future modules (AI Doctor, IoT, Community) can be added under `apps/`.
 
 ## Frontend integration
 
-The React client runs on **:8001** with `VITE_API_BASE_URL=http://localhost:8000` in `client/.env`. Mobile uses `EXPO_PUBLIC_API_BASE_URL` in `mobile/.env`.
+The React client runs on **:8001** with `VITE_API_BASE_URL=http://localhost:8003` in `client/.env`. Mobile uses `EXPO_PUBLIC_API_BASE_URL` in `mobile/.env`.
 
 ## Notes
 

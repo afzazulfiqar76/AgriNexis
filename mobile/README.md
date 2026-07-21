@@ -6,13 +6,13 @@ JavaScript Expo app that shares the Django JWT backend in `../server/` and mirro
 
 - Node.js 18+
 - [Expo Go](https://expo.dev/go) on a physical device, or Android/iOS emulator
-- Django API on **all interfaces** (required for Expo Go on a phone): `cd ../server && python manage.py runserver 0.0.0.0:8000`
+- Django API on **all interfaces** (required for Expo Go on a phone): `cd ../server && python manage.py runserver 0.0.0.0:8003`
 
 ## Ports
 
 | Service | Port | URL |
 |---------|------|-----|
-| Backend (Django) | **8000** | http://localhost:8000 |
+| Backend (Django) | **8003** | http://localhost:8003 |
 | Web client (Vite) | **8001** | http://localhost:8001 |
 | Mobile (Expo Metro) | **8002** | exp://…:8002 (QR in terminal) |
 
@@ -28,12 +28,12 @@ Edit `.env` and set `EXPO_PUBLIC_API_BASE_URL` for your environment:
 
 | Target | API base URL |
 |--------|----------------|
-| iOS Simulator | `http://localhost:8000` |
-| Android Emulator | `http://10.0.2.2:8000` |
-| Physical device (same Wi‑Fi) | `http://<your-pc-lan-ip>:8000` |
-| Expo web | `http://localhost:8000` |
+| iOS Simulator | `http://localhost:8003` |
+| Android Emulator | `http://10.0.2.2:8003` |
+| Physical device (same Wi‑Fi) | `http://<your-pc-lan-ip>:8003` |
+| Expo web | `http://localhost:8003` |
 
-With `CORS_ALLOW_ALL_ORIGINS=True` in `server/.env` (default), LAN Expo origins are allowed. API URL stays port **8000** (not 8002).
+With `CORS_ALLOW_ALL_ORIGINS=True` in `server/.env` (default), LAN Expo origins are allowed. API URL stays port **8003** (not 8002).
 
 ## Run
 
@@ -59,7 +59,7 @@ Do **not** press `a` unless Android Studio is installed (`ANDROID_HOME` + `adb`)
 | `Project is incompatible with this version of Expo Go` | Store Expo Go lags new SDKs — this repo uses **SDK 54**. Restart with `npx expo start -c --go`. If you upgraded the project to SDK 55/56, downgrade or install matching Expo Go from [expo.dev/go](https://expo.dev/go). |
 | Switched to `development build` / dev-client | Press `s` in the terminal to switch back to Expo Go, or use `npx expo start --go`. |
 | `adb` is not recognized | Use Expo Go + QR scan, or install [Android Studio](https://developer.android.com/studio) and set `ANDROID_HOME`. |
-| API network errors on phone | Run Django with `python manage.py runserver 0.0.0.0:8000` and set `EXPO_PUBLIC_API_BASE_URL=http://<your-wifi-ip>:8000` in `.env`. |
+| API network errors on phone | Run Django with `python manage.py runserver 0.0.0.0:8003` and set `EXPO_PUBLIC_API_BASE_URL=http://<your-wifi-ip>:8003` in `.env`. |
 
 ## Auth flow
 

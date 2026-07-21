@@ -1,5 +1,8 @@
 export const CHATBOT_NAME = 'AgriNexis Assistant'
 
+export const MODEL_UNAVAILABLE_MESSAGE =
+  'The model is currently unavailable. Please try again later.'
+
 export const DEFAULT_WELCOME_LINE = `Welcome to ${CHATBOT_NAME}. I can help you understand AgriNexis, navigate the website, and learn about features like AI Plant Doctor, IoT Sensors, Community, and more.`
 
 const LEGACY_WELCOME_PATTERNS = [

@@ -100,7 +100,7 @@ class OpenAIProvider(BaseLLMProvider):
         key = api_key or os.environ.get('OPENAI_API_KEY', '').strip()
         if not key:
             raise AIServiceError(
-                'The AI service is temporarily unavailable.',
+                'The model is currently unavailable. Please try again later.',
                 status_code=503,
                 error_code='AI_UNAVAILABLE',
             )

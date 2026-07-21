@@ -6,8 +6,8 @@ export function getErrorMessage(error) {
     error?.code === 'ERR_NETWORK'
   ) {
     return (
-      'Cannot reach the API server. On your PC run: python manage.py runserver 0.0.0.0:8000 ' +
-      '(not just runserver 8000). Use your Wi‑Fi IP in mobile/.env and allow port 8000 in Windows Firewall.'
+      'Cannot reach the API server. On your PC run: python manage.py runserver 0.0.0.0:8003 ' +
+      '(not just runserver 8003). Use your Wi‑Fi IP in mobile/.env and allow port 8003 in Windows Firewall.'
     )
   }
   const data = error?.response?.data
