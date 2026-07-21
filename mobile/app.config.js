@@ -25,6 +25,8 @@ export default {
       favicon: './assets/favicon.png',
     },
     extra: {
+      // Keep in sync with scripts/ports.config.mjs (Metro 8002, API 8003)
+      metroPort: 8002,
       apiBaseUrl: process.env.EXPO_PUBLIC_API_BASE_URL ?? 'http://localhost:8003',
     },
     plugins: ['expo-font'],

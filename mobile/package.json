@@ -30,10 +30,11 @@
     "react-native-worklets": "0.5.1"
   },
   "scripts": {
-    "start": "expo start --go --port 8002",
-    "android": "expo start --android --port 8002",
-    "ios": "expo start --ios --port 8002",
-    "web": "expo start --web --port 8002 --localhost"
+    "start": "node ../scripts/run-expo.mjs --go",
+    "android": "node ../scripts/run-expo.mjs --android",
+    "ios": "node ../scripts/run-expo.mjs --ios",
+    "web": "node ../scripts/run-expo.mjs --web --localhost",
+    "free-port": "node ../scripts/free-ports.mjs 8002"
   },
   "private": true
 }
