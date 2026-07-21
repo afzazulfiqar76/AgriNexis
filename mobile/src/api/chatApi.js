@@ -102,6 +102,15 @@ async function authHeaders() {
   return token ? { Authorization: `Bearer ${token}` } : {}
 }
 
+function parseJsonSafe(rawText) {
+  if (!rawText) return {}
+  try {
+    return JSON.parse(rawText)
+  } catch {
+    return {}
+  }
+}
+
 export async function fetchChatHistory(signal) {
   const res = await fetch(`${CHAT_URL}history/`, {
     method: 'GET',
@@ -109,16 +118,26 @@ export async function fetchChatHistory(signal) {
     signal,
   })
   const rawText = await res.text()
-  let data = {}
-  try {
-    data = rawText ? JSON.parse(rawText) : {}
-  } catch {
-    data = {}
-  }
+  const data = parseJsonSafe(rawText)
   if (!res.ok) throw new Error(data?.detail || `History fetch failed (${res.status})`)
   if (Array.isArray(data)) return data
   if (Array.isArray(data?.messages)) return data.messages
   return []
+}
+
+/** Optional cloud sync — backend may not implement; callers catch silently. */
+export async function saveChatHistory(messages) {
+  const res = await fetch(`${CHAT_URL}history/`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', ...(await authHeaders()) },
+    body: JSON.stringify({ messages }),
+  })
+
+  if (!res.ok) {
+    const rawText = await res.text()
+    const data = parseJsonSafe(rawText)
+    throw new Error(data?.detail || `History save failed (${res.status})`)
+  }
 }
 
 export { ERROR_MESSAGES as CHAT_ERROR_MESSAGES, CHAT_URL }
