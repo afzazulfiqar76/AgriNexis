@@ -1,7 +1,16 @@
+export const ACCOUNT_STATUS = {
+  ACTIVE: 'active',
+  SUSPENDED: 'suspended',
+  PENDING: 'pending',
+}
+
 export const USER_ROLES = {
   ADMIN: 'ADMIN',
   USER: 'USER',
   MODERATOR: 'MODERATOR',
+  /** @deprecated Use USER — kept for admin mock tables */
+  FARMER: 'USER',
+  RESEARCHER: 'USER',
 }
 
 const ROLE_LABELS = {
@@ -30,5 +39,6 @@ export function mapApiUser(apiUser) {
     profileImage: apiUser.profile_image ?? null,
     isVerified: apiUser.is_verified ?? false,
     isActive: apiUser.is_active !== false,
+    accountStatus: apiUser.is_active === false ? ACCOUNT_STATUS.SUSPENDED : ACCOUNT_STATUS.ACTIVE,
   }
 }
