@@ -1,5 +1,17 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
-import { Bell, ChevronRight, Droplets, Leaf, Shield, Sprout } from 'lucide-react-native'
+import {
+  AlertTriangle,
+  Bell,
+  CheckCircle2,
+  ChevronRight,
+  CloudRain,
+  Droplets,
+  Leaf,
+  Shield,
+  Sprout,
+  Thermometer,
+  Wind,
+} from 'lucide-react-native'
 import { useAuth } from '../../context/AuthContext'
 import { AppButton } from '../../components/AppButton'
 import { AppCard } from '../../components/AppCard'
@@ -9,16 +21,36 @@ import { WelcomeBanner } from '../../components/WelcomeBanner'
 import { ScreenContainer } from '../../components/ScreenContainer'
 import { DASHBOARD_STATS } from '../../data/dashboardStats'
 import { URBAN_FARMS } from '../../data/urbanFarms'
-import { HOME_ALERTS } from '../../data/homeInsights'
+import { SMART_ALERTS } from '../../data/smartAlerts'
+import { WEATHER_FORECAST } from '../../data/weatherForecast'
 import { colors, fontFamily, typography } from '../../constants/theme'
 import { ROUTES } from '../../constants/routes'
 import { spacing, touchTarget } from '../../constants/spacing'
+import { showInfo } from '../../lib/toast'
 
 const STAT_ICONS = {
   sprout: Sprout,
   leaf: Leaf,
   shield: Shield,
   droplets: Droplets,
+}
+
+const WEATHER_ICONS = {
+  thermometer: Thermometer,
+  droplets: Droplets,
+  wind: Wind,
+}
+
+const ALERT_ICONS = {
+  'alert-triangle': AlertTriangle,
+  'check-circle': CheckCircle2,
+  'cloud-rain': CloudRain,
+}
+
+const ALERT_COLORS = {
+  warning: { bg: '#fffbeb', border: '#fde68a', icon: '#d97706' },
+  success: { bg: '#ecfdf5', border: '#a7f3d0', icon: '#059669' },
+  info: { bg: '#f0f9ff', border: '#bae6fd', icon: '#0284c7' },
 }
 
 export function HomeScreen({ navigation }) {
@@ -43,7 +75,11 @@ export function HomeScreen({ navigation }) {
         </Pressable>
       </View>
 
-      <WelcomeBanner userName={firstName} />
+      <WelcomeBanner
+        userName={firstName}
+        onAddFarm={() => showInfo('Add Farm coming soon')}
+        onViewAnalytics={() => parent?.navigate(ROUTES.DASHBOARD)}
+      />
 
       <View style={styles.statsGrid}>
         {DASHBOARD_STATS.map((stat) => {
@@ -64,20 +100,62 @@ export function HomeScreen({ navigation }) {
             <Text style={styles.sectionTitle}>My Urban Farms</Text>
             <Text style={styles.sectionSub}>Manage and monitor your farming plots</Text>
           </View>
-          <AppButton title="Add Farm" variant="primary" style={styles.addBtn} />
+          <AppButton
+            title="Add Farm"
+            variant="primary"
+            style={styles.addBtn}
+            onPress={() => showInfo('Add Farm coming soon')}
+          />
         </View>
         {URBAN_FARMS.map((farm) => (
           <FarmCard key={farm.id} {...farm} />
         ))}
       </AppCard>
 
-      <Text style={[typography.label, styles.insightsLabel]}>Insights & alerts</Text>
-      {HOME_ALERTS.map((alert) => (
-        <AppCard key={alert.id} style={styles.alertCard} padding={spacing.md}>
-          <Text style={styles.alertTitle}>{alert.title}</Text>
-          <Text style={typography.caption}>{alert.detail}</Text>
-        </AppCard>
-      ))}
+      <AppCard padding={spacing.md} style={styles.section}>
+        <Text style={styles.sectionTitle}>Weather Forecast</Text>
+        <Text style={styles.weatherMeta}>
+          {WEATHER_FORECAST.dateLabel} · {WEATHER_FORECAST.condition}
+        </Text>
+        <Text style={styles.weatherTemp}>{WEATHER_FORECAST.temperature}</Text>
+        <View style={styles.weatherGrid}>
+          {WEATHER_FORECAST.stats.map((stat) => {
+            const Icon = WEATHER_ICONS[stat.icon] ?? Thermometer
+            return (
+              <View key={stat.id} style={styles.weatherChip}>
+                <View style={[styles.weatherIcon, { backgroundColor: stat.iconBg }]}>
+                  <Icon size={16} color={stat.iconColor} strokeWidth={2} />
+                </View>
+                <View style={styles.weatherChipBody}>
+                  <Text style={styles.weatherLabel}>{stat.label}</Text>
+                  <Text style={styles.weatherValue}>{stat.value}</Text>
+                </View>
+              </View>
+            )
+          })}
+        </View>
+      </AppCard>
+
+      <Text style={[typography.label, styles.insightsLabel]}>Smart alerts</Text>
+      {SMART_ALERTS.map((alert) => {
+        const Icon = ALERT_ICONS[alert.icon] ?? AlertTriangle
+        const tone = ALERT_COLORS[alert.variant] ?? ALERT_COLORS.info
+        return (
+          <AppCard
+            key={alert.id}
+            style={[styles.alertCard, { borderColor: tone.border, backgroundColor: tone.bg }]}
+            padding={spacing.md}
+          >
+            <View style={styles.alertRow}>
+              <Icon size={18} color={tone.icon} strokeWidth={2} />
+              <View style={styles.alertBody}>
+                <Text style={styles.alertTitle}>{alert.message}</Text>
+                <Text style={typography.caption}>{alert.timeAgo}</Text>
+              </View>
+            </View>
+          </AppCard>
+        )
+      })}
 
       <AppCard style={styles.cta} padding={spacing.md}>
         <Text style={typography.h3}>AI Plant Doctor</Text>
@@ -87,7 +165,7 @@ export function HomeScreen({ navigation }) {
         <AppButton
           title="Open AI Doctor"
           variant="outline-emerald"
-          onPress={() => navigation.navigate('AiDoctor')}
+          onPress={() => navigation.navigate(ROUTES.AI_DOCTOR)}
           style={styles.ctaBtn}
         />
       </AppCard>
@@ -142,13 +220,46 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   addBtn: { paddingHorizontal: spacing.md, flexShrink: 0 },
+  weatherMeta: {
+    marginTop: spacing.xs,
+    fontSize: 13,
+    fontFamily: fontFamily.regular,
+    color: colors.gray500,
+  },
+  weatherTemp: {
+    marginTop: spacing.sm,
+    fontSize: 28,
+    fontFamily: fontFamily.bold,
+    color: colors.text,
+  },
+  weatherGrid: { marginTop: spacing.md, gap: spacing.sm },
+  weatherChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    paddingVertical: spacing.sm,
+    borderTopWidth: 1,
+    borderTopColor: colors.gray100,
+  },
+  weatherIcon: {
+    width: 36,
+    height: 36,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  weatherChipBody: { flex: 1 },
+  weatherLabel: { fontSize: 12, fontFamily: fontFamily.medium, color: colors.gray500 },
+  weatherValue: { fontSize: 15, fontFamily: fontFamily.semibold, color: colors.text },
   insightsLabel: { marginBottom: spacing.sm, color: colors.gray500 },
-  alertCard: { marginBottom: spacing.sm },
+  alertCard: { marginBottom: spacing.sm, borderWidth: 1 },
+  alertRow: { flexDirection: 'row', gap: spacing.sm, alignItems: 'flex-start' },
+  alertBody: { flex: 1, minWidth: 0 },
   alertTitle: {
-    fontSize: 15,
+    fontSize: 14,
     fontFamily: fontFamily.semibold,
     color: colors.text,
-    marginBottom: 4,
+    marginBottom: 2,
   },
   cta: { marginTop: spacing.sm },
   ctaSub: { marginVertical: spacing.sm },

@@ -5,7 +5,7 @@ import { AppButton } from './AppButton'
 import { colors, fontFamily, shadows } from '../constants/theme'
 import { radius, spacing } from '../constants/spacing'
 
-export function WelcomeBanner({ userName = 'Farmer' }) {
+export function WelcomeBanner({ userName = 'Farmer', onAddFarm, onViewAnalytics }) {
   return (
     <LinearGradient
       colors={[colors.primary, colors.emerald700]}
@@ -29,6 +29,7 @@ export function WelcomeBanner({ userName = 'Farmer' }) {
             icon={<Plus size={16} color={colors.text} strokeWidth={2.5} />}
             style={styles.actionBtn}
             textStyle={{ color: colors.text }}
+            onPress={onAddFarm}
           />
           <AppButton
             variant="ghost"
@@ -36,6 +37,7 @@ export function WelcomeBanner({ userName = 'Farmer' }) {
             icon={<BarChart3 size={16} color="#fff" strokeWidth={2} />}
             style={styles.ghostBtn}
             textStyle={{ color: '#fff' }}
+            onPress={onViewAnalytics}
           />
         </View>
       </View>
