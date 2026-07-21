@@ -6,6 +6,7 @@ import { AppTabs } from './AppTabs'
 import { AdminDrawerNavigator } from './AdminDrawerNavigator'
 import { DashboardScreen } from '../screens/main/DashboardScreen'
 import { NotificationsScreen } from '../screens/main/NotificationsScreen'
+import { ChatScreen } from '../screens/main/ChatScreen'
 import { ContactScreen } from '../screens/public/ContactScreen'
 import { DocumentationScreen } from '../screens/public/DocumentationScreen'
 import { PrivacyPolicyScreen } from '../screens/public/PrivacyPolicyScreen'
@@ -26,6 +27,7 @@ export function AppStack() {
       <Stack.Screen name="Tabs" component={AppTabs} />
       <Stack.Screen name={ROUTES.DASHBOARD} component={DashboardScreen} options={{ ...stackHeader, title: 'Dashboard' }} />
       <Stack.Screen name={ROUTES.NOTIFICATIONS} component={NotificationsScreen} options={{ ...stackHeader, title: 'Notifications' }} />
+      <Stack.Screen name={ROUTES.AICHAT} component={ChatScreen} options={{ ...stackHeader, title: 'AgriNexis Assistant' }} />
       <Stack.Screen name={ROUTES.CONTACT} component={ContactScreen} options={{ ...publicHeaderOptions, title: 'Contact' }} />
       <Stack.Screen name={ROUTES.DOCUMENTATION} component={DocumentationScreen} options={{ ...publicHeaderOptions, title: 'Documentation' }} />
       <Stack.Screen name={ROUTES.PRIVACY_POLICY} component={PrivacyPolicyScreen} options={{ ...publicHeaderOptions, title: 'Privacy Policy' }} />

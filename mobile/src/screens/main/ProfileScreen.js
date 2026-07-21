@@ -11,6 +11,7 @@ import { colors, fontFamily } from '../../constants/theme'
 import { spacing, touchTarget } from '../../constants/spacing'
 
 const RESOURCE_LINKS = [
+  { label: 'AgriNexis Assistant', route: ROUTES.AICHAT },
   { label: 'Documentation', route: ROUTES.DOCUMENTATION },
   { label: 'FAQs', route: ROUTES.FAQS },
   { label: 'Contact Us', route: ROUTES.CONTACT },

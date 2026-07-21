@@ -8,6 +8,7 @@ export const ROUTES = {
   COMMUNITY: 'Community',
   PROFILE: 'Profile',
   NOTIFICATIONS: 'Notifications',
+  AICHAT: 'AiChat',
   CONTACT: 'Contact',
   DOCUMENTATION: 'Documentation',
   PRIVACY_POLICY: 'PrivacyPolicy',
