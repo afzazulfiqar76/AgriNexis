@@ -50,7 +50,18 @@ Run migrations and seed the admin user:
 ```bash
 python manage.py migrate
 python manage.py seed_admin
-python manage.py runserver 127.0.0.1:8003
+python manage.py runserver
+# → defaults to http://127.0.0.1:8003 (not :8000)
+# Phones / LAN: python manage.py runserver 0.0.0.0:8003
+# Or: .\runserver.ps1  /  .\run_mobile_api.ps1
+```
+
+From the **repo root**, prefer:
+
+```bash
+npm run free-ports
+npm run dev:api
+# or Windows: .\dev.ps1 -Api
 ```
 
 Django admin (session login for `ADMIN` users): http://localhost:8003/admin/

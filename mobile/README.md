@@ -38,7 +38,7 @@ With `CORS_ALLOW_ALL_ORIGINS=True` in `server/.env` (default), LAN Expo origins 
 ## Run
 
 ```bash
-# Phone / Expo Go (Metro on :8002)
+# Phone / Expo Go (Metro always on :8002 — frees stale Metro first)
 npm start
 
 # Browser preview of the RN app (NOT the Vite client in ../client)
@@ -46,7 +46,17 @@ npm run web
 # → http://localhost:8002
 ```
 
+From the **repo root**, you can also run:
+
+```bash
+npm run free-ports    # clear 8001 / 8002 / 8003
+npm run dev:mobile    # Expo only
+.\dev.ps1             # API + web + mobile (Windows)
+```
+
 If the browser opens **:5173 / :5179**, that is the **web client** (`cd ../client && npm run dev` → **:8001**), not this Expo app.
+
+**Never accept** Expo’s prompt to use port **8003** — that port is the Django API. Choose **No**, then run `npm run free-port` (or from root `npm run free-ports`) and `npm start` again.
 
 **Physical device (recommended):** use [Expo Go](https://expo.dev/go) from the App Store / Play Store. This project targets **Expo SDK 54** (matches the store Expo Go build; SDK 55+ projects often show “incompatible” until you install a matching Expo Go). Scan the QR code — phone and PC must be on the same Wi‑Fi (`192.168.x.x`).
 
@@ -56,10 +66,12 @@ Do **not** press `a` unless Android Studio is installed (`ANDROID_HOME` + `adb`)
 
 | Error | Fix |
 |-------|-----|
-| `Project is incompatible with this version of Expo Go` | Store Expo Go lags new SDKs — this repo uses **SDK 54**. Restart with `npx expo start -c --go`. If you upgraded the project to SDK 55/56, downgrade or install matching Expo Go from [expo.dev/go](https://expo.dev/go). |
-| Switched to `development build` / dev-client | Press `s` in the terminal to switch back to Expo Go, or use `npx expo start --go`. |
+| `Port 8002 is being used by another process` | Run `npm run free-port` then `npm start`. Do **not** switch to port 8003. |
+| Expo asks to use port 8003 | Answer **No**. Port 8003 is Django. Free 8002 and restart. |
+| `Project is incompatible with this version of Expo Go` | Store Expo Go lags new SDKs — this repo uses **SDK 54**. Restart with `npx expo start -c --go --port 8002` after `npm run free-port`. |
+| Switched to `development build` / dev-client | Press `s` in the terminal to switch back to Expo Go, or use `npm start` (`--go`). |
 | `adb` is not recognized | Use Expo Go + QR scan, or install [Android Studio](https://developer.android.com/studio) and set `ANDROID_HOME`. |
-| API network errors on phone | Run Django with `python manage.py runserver 0.0.0.0:8003` and set `EXPO_PUBLIC_API_BASE_URL=http://<your-wifi-ip>:8003` in `.env`. |
+| API network errors on phone | Run Django with `python manage.py runserver 0.0.0.0:8003` (or `..\server\run_mobile_api.ps1`) and set `EXPO_PUBLIC_API_BASE_URL=http://<your-wifi-ip>:8003` in `.env`. |
 
 ## Auth flow
 
