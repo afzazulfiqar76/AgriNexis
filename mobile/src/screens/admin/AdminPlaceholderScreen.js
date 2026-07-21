@@ -1,23 +1,20 @@
-import { StyleSheet, Text } from 'react-native'
-import { AppCard } from '../../components/AppCard'
+import { LayoutDashboard } from 'lucide-react-native'
 import { ScreenContainer } from '../../components/ScreenContainer'
+import { EmptyState } from '../../components/EmptyState'
 import { AdminPageHeader } from '../../components/admin/AdminPageHeader'
-import { ChartPlaceholder } from '../../components/admin/ChartPlaceholder'
-import { colors, fontFamily } from '../../constants/theme'
-import { spacing } from '../../constants/spacing'
 
 export function AdminPlaceholderScreen({ title, subtitle, description }) {
   return (
     <ScreenContainer>
       <AdminPageHeader title={title} subtitle={subtitle} />
-      <AppCard>
-        <Text style={styles.body}>{description}</Text>
-      </AppCard>
-      <ChartPlaceholder title="Analytics preview" />
+      <EmptyState
+        icon={LayoutDashboard}
+        title={title}
+        description={
+          description ||
+          'This admin section is ready for data. Connect the matching API to populate live metrics and lists.'
+        }
+      />
     </ScreenContainer>
   )
 }
-
-const styles = StyleSheet.create({
-  body: { fontSize: 15, fontFamily: fontFamily.regular, color: colors.gray600, lineHeight: 24 },
-})

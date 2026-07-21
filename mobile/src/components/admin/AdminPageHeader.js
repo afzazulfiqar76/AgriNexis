@@ -12,6 +12,6 @@ export function AdminPageHeader({ title, subtitle }) {
 }
 
 const styles = StyleSheet.create({
-  wrap: { marginBottom: spacing.lg, gap: 4 },
-  sub: { fontSize: 14, fontFamily: fontFamily.regular, color: colors.gray500 },
+  wrap: { marginBottom: spacing.md, gap: 4 },
+  sub: { fontSize: 14, fontFamily: fontFamily.regular, color: colors.gray500, lineHeight: 20 },
 })

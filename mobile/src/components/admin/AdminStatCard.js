@@ -9,7 +9,8 @@ import {
 } from 'lucide-react-native'
 import { AppCard } from '../AppCard'
 import { colors, fontFamily, typography } from '../../constants/theme'
-import { spacing } from '../../constants/spacing'
+import { radius, spacing } from '../../constants/spacing'
+import { useLayout } from '../../utils/layout'
 
 const ICONS = {
   users: Users,
@@ -32,29 +33,68 @@ const ICON_BG = {
 export function AdminStatCard({ label, value, trend, icon = 'users' }) {
   const Icon = ICONS[icon] ?? Users
   const bg = ICON_BG[icon] ?? colors.primary
+  const { halfCard, isSmallPhone } = useLayout()
+
   return (
-    <AppCard style={styles.card} padding={spacing.md}>
-      <View style={[styles.iconWrap, { backgroundColor: bg }]}>
-        <Icon size={20} color="#fff" strokeWidth={2} />
+    <AppCard
+      style={[styles.card, halfCard, isSmallPhone && styles.fullWidth]}
+      padding={spacing.md}
+    >
+      <View style={styles.top}>
+        <Text style={styles.label} numberOfLines={2}>
+          {label}
+        </Text>
+        <View style={[styles.iconWrap, { backgroundColor: bg }]}>
+          <Icon size={20} color="#fff" strokeWidth={2} />
+        </View>
       </View>
-      <Text style={styles.label}>{label}</Text>
-      <Text style={styles.value}>{value}</Text>
-      {trend ? <Text style={styles.trend}>{trend}</Text> : null}
+      <Text style={styles.value} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.85}>
+        {value}
+      </Text>
+      <View style={styles.trendWrap}>
+        {trend ? (
+          <Text style={styles.trend} numberOfLines={1}>
+            {trend}
+          </Text>
+        ) : null}
+      </View>
     </AppCard>
   )
 }
 
 const styles = StyleSheet.create({
-  card: { flex: 1, minWidth: '46%' },
+  card: {
+    minHeight: 124,
+    justifyContent: 'space-between',
+  },
+  fullWidth: {
+    flexBasis: '100%',
+    maxWidth: '100%',
+  },
+  top: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: spacing.sm,
+    minHeight: 40,
+  },
   iconWrap: {
     width: 40,
     height: 40,
-    borderRadius: 12,
+    borderRadius: radius.md,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: spacing.sm,
+    flexShrink: 0,
   },
-  label: { fontSize: 14, fontFamily: fontFamily.regular, color: colors.gray500 },
-  value: { ...typography.statValue, fontSize: 26, marginTop: 4 },
-  trend: { marginTop: 4, fontSize: 13, fontFamily: fontFamily.medium, color: colors.primary },
+  label: {
+    flex: 1,
+    fontSize: 13,
+    lineHeight: 18,
+    fontFamily: fontFamily.medium,
+    color: colors.gray500,
+    paddingTop: 2,
+  },
+  value: { ...typography.statValue, fontSize: 26, marginTop: spacing.sm },
+  trendWrap: { minHeight: 18, marginTop: 4 },
+  trend: { fontSize: 12, fontFamily: fontFamily.medium, color: colors.primary },
 })

@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import { colors, fontFamily } from '../../constants/theme'
+import { radius, spacing } from '../../constants/spacing'
 
 const VARIANTS = {
   active: { bg: colors.emerald100, text: '#065f46', border: '#a7f3d0' },
@@ -19,21 +20,25 @@ export function StatusBadge({ status, label }) {
   const display = label ?? status
   return (
     <View style={[styles.badge, { backgroundColor: v.bg, borderColor: v.border }]}>
-      <Text style={[styles.text, { color: v.text }]}>{display}</Text>
+      <Text style={[styles.text, { color: v.text }]} numberOfLines={1}>
+        {display}
+      </Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   badge: {
-    borderRadius: 999,
+    borderRadius: radius.full,
     borderWidth: 1,
-    paddingHorizontal: 10,
-    paddingVertical: 2,
+    paddingHorizontal: spacing.sm + 2,
+    paddingVertical: 3,
     alignSelf: 'flex-start',
+    flexShrink: 0,
+    maxWidth: 120,
   },
   text: {
-    fontSize: 12,
+    fontSize: 11,
     fontFamily: fontFamily.semibold,
     textTransform: 'capitalize',
   },
