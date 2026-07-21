@@ -72,14 +72,6 @@ def system_prompt_refusal_message() -> str:
     )
 
 
-def off_scope_refusal_message() -> str:
-    return (
-        "I'm AgriNexis Assistant — I help with the AgriNexis website and its features. "
-        f'Ask me about navigating the platform, or visit [FAQs]({FAQS_PATH}) '
-        f'and [Contact Us]({CONTACT_PATH}) for more help.'
-    )
-
-
 def get_approved_domains(*, debug: bool = False) -> frozenset[str]:
     if debug:
         return APPROVED_DOMAINS | DEV_HOSTS

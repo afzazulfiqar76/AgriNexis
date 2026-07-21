@@ -1,4 +1,4 @@
-"""Pre-LLM gates for greetings, support redirects, and off-scope requests."""
+"""Pre-LLM gates for greetings, support redirects, and system-prompt extraction."""
 
 from __future__ import annotations
 
@@ -9,7 +9,6 @@ from chatbot.business_rules.constants import (
     DEFAULT_SUPPORT_EMAIL,
     GREETING_RESPONSE,
     contact_support_message,
-    off_scope_refusal_message,
     report_problem_message,
     system_prompt_refusal_message,
 )
@@ -38,7 +37,7 @@ _ADMIN_CONTACT_PATTERNS = [
     re.compile(r'\bgive\s+me\s+(the\s+)?admin\s+(phone|number|email)\b', re.I),
 ]
 
-# Generic support / report intents only — do not catch "need help with Plant Doctor"
+# Generic support / report intents only — do not catch feature names like "Contact Us"
 _SUPPORT_HELP_PATTERNS = [
     re.compile(r'\breport\s+(a\s+)?(problem|issue|bug)\b', re.I),
     re.compile(
@@ -47,8 +46,9 @@ _SUPPORT_HELP_PATTERNS = [
     ),
     re.compile(r'\b(need|want)\s+(customer\s+)?support\b', re.I),
     re.compile(r'\b(account|login|password)\s+(problem|issue|help)\b', re.I),
-    re.compile(r'\bcontact\s+(support|us)\b', re.I),
+    re.compile(r'\b(need\s+to\s+|want\s+to\s+|how\s+(can|do)\s+i\s+)?contact\s+support\b', re.I),
     re.compile(r'\bhow\s+(can|do)\s+i\s+(get\s+)?(help|support)\b', re.I),
+    re.compile(r'\b(need|want)\s+to\s+contact\s+us\b', re.I),
 ]
 
 _CUSTOMER_PII_PATTERNS = [
@@ -66,14 +66,6 @@ _SYSTEM_EXTRACTION_PATTERNS = [
     re.compile(r'\bprint\s+your\s+(system\s+)?prompt\b', re.I),
     re.compile(r'\breveal\s+(hidden\s+)?instructions?\b', re.I),
 ]
-
-_OFF_SCOPE_PATTERNS = [
-    re.compile(r'\b(write|debug|fix)\s+(me\s+)?(some\s+)?(python|javascript|java|c\+\+|code|program)\b', re.I),
-    re.compile(r'\b(what is|explain)\s+(python|javascript|nlp|machine learning|react)\b', re.I),
-    re.compile(r'\bact as\s+(chatgpt|a coding assistant|a programming tutor)\b', re.I),
-    re.compile(r'\b(leetcode|interview prep|homework)\b', re.I),
-]
-
 
 @dataclass(frozen=True)
 class PrivacyCheckResult:
@@ -98,6 +90,12 @@ def check_privacy_request(
     *,
     support_email: str = DEFAULT_SUPPORT_EMAIL,
 ) -> PrivacyCheckResult:
+    """Gate only greetings, system-prompt extraction, and support redirects.
+
+    General knowledge and ordinary AgriNexis website questions must pass through
+    so the model (or overview short-circuit) can answer them normally.
+    """
+    del support_email  # reserved for future personalized support copy
     text = (message or '').strip()
     if not text:
         return PrivacyCheckResult(blocked=False, reason='', response='')
@@ -128,13 +126,6 @@ def check_privacy_request(
             blocked=True,
             reason='report_or_support',
             response=report_problem_message(),
-        )
-
-    if _match_any(text, _OFF_SCOPE_PATTERNS):
-        return PrivacyCheckResult(
-            blocked=True,
-            reason='off_scope',
-            response=off_scope_refusal_message(),
         )
 
     return PrivacyCheckResult(blocked=False, reason='', response='')
