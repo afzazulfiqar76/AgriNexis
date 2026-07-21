@@ -12,7 +12,7 @@ import {
   btnSecondary,
   btnSecondaryText,
 } from '../constants/uiStyles'
-import { colors } from '../constants/theme'
+import { colors, fontFamily } from '../constants/theme'
 import { radius, spacing } from '../constants/spacing'
 
 const VARIANTS = {
@@ -34,13 +34,20 @@ export function AppButton({
   icon,
   large = false,
   children,
+  accessibilityLabel,
 }) {
   const v = VARIANTS[variant] ?? VARIANTS.primary
   const label = children ?? title
 
   if (variant === 'gradient') {
     return (
-      <Pressable onPress={onPress} disabled={disabled || loading} style={[styles.gradientWrap, style]}>
+      <Pressable
+        onPress={onPress}
+        disabled={disabled || loading}
+        style={[styles.gradientWrap, style]}
+        accessibilityRole="button"
+        accessibilityLabel={accessibilityLabel ?? (typeof label === 'string' ? label : undefined)}
+      >
         <LinearGradient
           colors={[colors.purple600, colors.fuchsia500]}
           start={{ x: 0, y: 0 }}
@@ -52,7 +59,9 @@ export function AppButton({
           ) : (
             <View style={styles.row}>
               {icon}
-              <Text style={[styles.gradientText, textStyle]}>{label}</Text>
+              <Text style={[styles.gradientText, textStyle]} numberOfLines={1}>
+                {label}
+              </Text>
             </View>
           )}
         </LinearGradient>
@@ -64,6 +73,8 @@ export function AppButton({
     <Pressable
       onPress={onPress}
       disabled={disabled || loading}
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel ?? (typeof label === 'string' ? label : undefined)}
       style={({ pressed }) => [
         v.button,
         large && styles.large,
@@ -77,7 +88,13 @@ export function AppButton({
       ) : (
         <View style={styles.row}>
           {icon}
-          {typeof label === 'string' ? <Text style={[v.text, textStyle]}>{label}</Text> : label}
+          {typeof label === 'string' ? (
+            <Text style={[v.text, textStyle]} numberOfLines={1}>
+              {label}
+            </Text>
+          ) : (
+            label
+          )}
         </View>
       )}
     </Pressable>
@@ -85,7 +102,7 @@ export function AppButton({
 }
 
 const styles = StyleSheet.create({
-  row: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm },
+  row: { flexDirection: 'row', alignItems: 'center', gap: spacing.sm, maxWidth: '100%' },
   large: { minHeight: 48 },
   pressed: { opacity: 0.9 },
   disabled: { opacity: 0.5 },
@@ -98,6 +115,6 @@ const styles = StyleSheet.create({
   gradientText: {
     color: '#fff',
     fontSize: 15,
-    fontFamily: 'Inter_600SemiBold',
+    fontFamily: fontFamily.semibold,
   },
 })

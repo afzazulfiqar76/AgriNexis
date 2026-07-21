@@ -1,4 +1,4 @@
-import { colors, shadows } from './theme'
+import { colors, fontFamily, shadows } from './theme'
 import { radius, spacing } from './spacing'
 
 export const cardSurface = {
@@ -35,7 +35,7 @@ export const btnPrimary = {
 export const btnPrimaryText = {
   color: colors.primaryContent,
   fontSize: 15,
-  fontFamily: 'Inter_600SemiBold',
+  fontFamily: fontFamily.semibold,
 }
 
 export const btnSecondary = {
@@ -49,7 +49,7 @@ export const btnSecondary = {
 export const btnSecondaryText = {
   color: colors.gray700,
   fontSize: 14,
-  fontFamily: 'Inter_500Medium',
+  fontFamily: fontFamily.medium,
 }
 
 export const btnOutline = {
@@ -66,7 +66,7 @@ export const btnOutlineEmerald = {
 export const btnOutlineEmeraldText = {
   color: colors.emerald700,
   fontSize: 14,
-  fontFamily: 'Inter_600SemiBold',
+  fontFamily: fontFamily.semibold,
 }
 
 export const btnGhost = {
@@ -78,7 +78,7 @@ export const btnGhost = {
 export const btnGhostText = {
   color: colors.gray600,
   fontSize: 14,
-  fontFamily: 'Inter_500Medium',
+  fontFamily: fontFamily.medium,
 }
 
 export const progressTrack = {
@@ -94,10 +94,11 @@ export const inputSurface = {
   paddingHorizontal: spacing.md,
   paddingVertical: 12,
   fontSize: 14,
-  fontFamily: 'Inter_400Regular',
+  fontFamily: fontFamily.regular,
   color: colors.text,
   borderWidth: 2,
   borderColor: 'transparent',
+  minHeight: 48,
 }
 
 export const inputFocused = {
