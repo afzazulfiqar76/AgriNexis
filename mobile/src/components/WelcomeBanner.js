@@ -16,7 +16,9 @@ export function WelcomeBanner({ userName = 'Farmer' }) {
       <View style={[styles.circle, styles.circleTop]} />
       <View style={[styles.circle, styles.circleBottom]} />
       <View style={styles.content}>
-        <Text style={styles.title}>Welcome back, {userName}!</Text>
+        <Text style={styles.title} numberOfLines={2}>
+          Welcome back, {userName}!
+        </Text>
         <Text style={styles.sub}>
           Your urban farms are thriving with 87% average health score
         </Text>
@@ -44,7 +46,7 @@ export function WelcomeBanner({ userName = 'Farmer' }) {
 const styles = StyleSheet.create({
   banner: {
     borderRadius: radius.lg,
-    padding: spacing.lg,
+    padding: spacing.md,
     overflow: 'hidden',
     marginBottom: spacing.md,
   },
@@ -53,11 +55,17 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     backgroundColor: 'rgba(6, 95, 70, 0.3)',
   },
-  circleTop: { width: 200, height: 200, top: -80, right: -60 },
-  circleBottom: { width: 120, height: 120, bottom: -50, right: 80, backgroundColor: 'rgba(6, 95, 70, 0.2)' },
+  circleTop: { width: 160, height: 160, top: -70, right: -50 },
+  circleBottom: {
+    width: 100,
+    height: 100,
+    bottom: -40,
+    right: 60,
+    backgroundColor: 'rgba(6, 95, 70, 0.2)',
+  },
   content: { zIndex: 1 },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontFamily: fontFamily.bold,
     color: '#fff',
     letterSpacing: -0.5,
@@ -67,9 +75,18 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontFamily: fontFamily.regular,
     color: 'rgba(255,255,255,0.9)',
-    lineHeight: 22,
+    lineHeight: 20,
   },
-  actions: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm, marginTop: spacing.lg },
+  actions: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.sm,
+    marginTop: spacing.md,
+  },
   actionBtn: { backgroundColor: '#fff', borderColor: colors.gray200 },
-  ghostBtn: { backgroundColor: 'rgba(255,255,255,0.15)', borderWidth: 1, borderColor: 'rgba(255,255,255,0.4)' },
+  ghostBtn: {
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.4)',
+  },
 })
