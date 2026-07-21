@@ -11,6 +11,9 @@ const VARIANTS = {
   open: { bg: '#ffedd5', text: colors.orange600, border: '#fed7aa' },
   suspended: { bg: colors.red100, text: colors.red600, border: '#fecaca' },
   offline: { bg: colors.red100, text: colors.red600, border: '#fecaca' },
+  hidden: { bg: colors.gray100, text: colors.slate700, border: colors.gray200 },
+  delivered: { bg: colors.emerald100, text: '#065f46', border: '#a7f3d0' },
+  scheduled: { bg: '#e0e7ff', text: '#3730a3', border: '#c7d2fe' },
   read: { bg: colors.gray100, text: colors.slate700, border: colors.gray200 },
 }
 
