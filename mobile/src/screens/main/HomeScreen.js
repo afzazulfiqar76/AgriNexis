@@ -170,19 +170,6 @@ export function HomeScreen({ navigation }) {
         />
       </AppCard>
 
-      <AppCard style={styles.cta} padding={spacing.md}>
-        <Text style={typography.h3}>AgriNexis Assistant</Text>
-        <Text style={[typography.caption, styles.ctaSub]}>
-          Ask questions about the platform, features, and navigation
-        </Text>
-        <AppButton
-          title="Open Assistant"
-          variant="outline"
-          onPress={() => parent?.navigate(ROUTES.AICHAT)}
-          style={styles.ctaBtn}
-        />
-      </AppCard>
-
       <Pressable
         style={styles.dashLink}
         onPress={() => parent?.navigate(ROUTES.DASHBOARD)}
