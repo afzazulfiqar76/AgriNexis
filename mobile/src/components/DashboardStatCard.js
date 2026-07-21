@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { AppCard } from './AppCard'
 import { ProgressBar } from './ProgressBar'
-import { colors, fontFamily, typography } from '../constants/theme'
+import { colors, fontFamily, shadows, typography } from '../constants/theme'
 import { radius, spacing } from '../constants/spacing'
 import { useLayout } from '../utils/layout'
 
@@ -21,14 +20,13 @@ export function DashboardStatCard({
   const { halfCard, isSmallPhone } = useLayout()
 
   return (
-    <AppCard
+    <View
       style={[
         styles.card,
         halfCard,
         isSmallPhone && styles.fullWidth,
-        cardBg && { backgroundColor: cardBg },
+        cardBg ? { backgroundColor: cardBg } : null,
       ]}
-      padding={spacing.md}
     >
       <View style={styles.top}>
         <Text style={styles.label} numberOfLines={2}>
@@ -63,7 +61,7 @@ export function DashboardStatCard({
           </Text>
         ) : null}
       </View>
-    </AppCard>
+    </View>
   )
 }
 
@@ -71,6 +69,12 @@ const styles = StyleSheet.create({
   card: {
     minHeight: 132,
     justifyContent: 'space-between',
+    padding: spacing.md,
+    backgroundColor: colors.base100,
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: colors.borderLight,
+    ...shadows.card,
   },
   fullWidth: {
     flexBasis: '100%',
