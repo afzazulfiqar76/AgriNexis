@@ -40,28 +40,43 @@ DEFAULT_SUPPORT_EMAIL = 'support@agrinexis.com'
 
 UNVERIFIED_PAGE_MESSAGE = "I couldn't verify that page exists on AgriNexis."
 
+GREETING_RESPONSE = (
+    'Hello! 👋\n\nHow can I assist you with AgriNexis today?'
+)
 
-def privacy_refusal_message(support_email: str = DEFAULT_SUPPORT_EMAIL) -> str:
+
+def contact_support_message() -> str:
     return (
-        "I can't share admin, employee, or private user information. "
-        f"For official support, please visit [{CONTACT_PATH}]({CONTACT_PATH}) "
-        f"or email **{support_email}**."
+        'If you need assistance, you can contact the AgriNexis support team through the '
+        f'[Contact Us]({CONTACT_PATH}) page. They can help with account-related questions, '
+        'platform support, and general inquiries.'
     )
+
+
+def report_problem_message() -> str:
+    return (
+        'You can report any issues through the [Contact Us]({path}) page. '
+        'Our support team will review your request and assist you as soon as possible.'
+    ).format(path=CONTACT_PATH)
+
+
+def privacy_guidance_message() -> str:
+    """Website-oriented guidance instead of a hard privacy refusal."""
+    return contact_support_message()
 
 
 def system_prompt_refusal_message() -> str:
     return (
-        "I can't share internal system instructions or configuration details. "
-        "I'm AgriNexis Assistant — ask me about the AgriNexis platform and how to navigate the website."
+        "I'm here to help you with the AgriNexis website. "
+        'What would you like to know about AgriNexis today?'
     )
 
 
 def off_scope_refusal_message() -> str:
     return (
-        "I'm AgriNexis Assistant — I help with the AgriNexis website and platform features "
-        "(Dashboard, AI Plant Doctor, IoT Sensors, Community, Documentation, FAQs, and Contact). "
-        f"I don't answer general coding, ChatGPT-style, or unrelated questions. "
-        f"Try asking about AgriNexis, or visit [{FAQS_PATH}]({FAQS_PATH}) / [{CONTACT_PATH}]({CONTACT_PATH})."
+        "I'm AgriNexis Assistant — I help with the AgriNexis website and its features. "
+        f'Ask me about navigating the platform, or visit [FAQs]({FAQS_PATH}) '
+        f'and [Contact Us]({CONTACT_PATH}) for more help.'
     )
 
 

@@ -67,8 +67,11 @@ def generate_chat_response(
     support_email = _support_email()
     privacy = check_privacy_request(text, support_email=support_email)
     if privacy.blocked:
-        logger.info('chat.privacy_refusal reason=%s', privacy.reason)
-        return ChatResponse(text=privacy.response, intent='privacy_refusal')
+        intent = 'greeting' if privacy.reason == 'greeting' else 'privacy_refusal'
+        if privacy.reason in ('support_redirect', 'report_or_support'):
+            intent = 'navigation'
+        logger.info('chat.precheck reason=%s', privacy.reason)
+        return ChatResponse(text=privacy.response, intent=intent)
 
     intent_result = classify_intent(text)
     intent = intent_result.intent

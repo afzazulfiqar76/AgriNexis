@@ -3,13 +3,18 @@ export const CHATBOT_NAME = 'AgriNexis Assistant'
 export const MODEL_UNAVAILABLE_MESSAGE =
   'The model is currently unavailable. Please try again later.'
 
-export const DEFAULT_WELCOME_LINE = `Welcome to ${CHATBOT_NAME}. I can help you understand AgriNexis, navigate the website, and learn about features like AI Plant Doctor, IoT Sensors, Community, and more.`
+export const DEFAULT_WELCOME_LINE = `Welcome to ${CHATBOT_NAME}. How can I help you today?`
 
 const LEGACY_WELCOME_PATTERNS = [
   /CoreForge/i,
   /Ask me anything about technology, programming/i,
-  /Welcome to AgriNexis\. How can I help/i,
+  /I can help you understand AgriNexis/i,
+  /learn about features like AI Plant Doctor/i,
   /I'm here to help you with programming/i,
+  /navigate the website, and learn about features/i,
+  /\/dashboard|\/ai-plant-doctor|\/ai-doctor|\/iot-sensors/i,
+  /Here(?:'|’)s what I can help with/i,
+  /Try asking about/i,
 ]
 
 /** True if stored text is an outdated bot welcome / self-intro. */

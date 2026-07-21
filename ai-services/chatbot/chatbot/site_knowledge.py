@@ -55,7 +55,10 @@ SITE_PAGES = [
 
 
 def format_site_knowledge() -> str:
-    lines = ['AgriNexis website pages (use ONLY these paths when linking):']
+    lines = [
+        'AgriNexis website pages (use ONLY these paths when linking; '
+        'do not list them unless the user asks for navigation or a specific feature):'
+    ]
     for page in SITE_PAGES:
         lines.append(f"- {page['name']}: {page['path']} — {page['purpose']}")
     lines.append('- Sign in: /signin')
