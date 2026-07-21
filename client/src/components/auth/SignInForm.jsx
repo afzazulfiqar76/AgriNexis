@@ -1,12 +1,10 @@
 import { useState } from 'react'
 import { Lock, Mail } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
 import { InputField } from '@/components/forms/InputField'
 import { PasswordField } from '@/components/forms/PasswordField'
 import { getLoginSuccessMessage } from '@/constants/authMessages'
-import { USER_ROLES } from '@/constants/auth'
-import { ADMIN_ROUTES } from '@/constants/adminRoutes'
 import { ROUTES } from '@/constants/routes'
 import { useAuth } from '@/contexts/AuthContext'
 import { showAuthApiError, showError, showSuccess } from '@/lib/toast'
@@ -18,11 +16,29 @@ const initialValues = {
   rememberMe: false,
 }
 
+function resolvePostLoginPath(location) {
+  const from = location.state?.from?.pathname
+  if (
+    typeof from === 'string' &&
+    from.startsWith('/') &&
+    !from.startsWith(ROUTES.SIGN_IN) &&
+    !from.startsWith(ROUTES.SIGN_UP)
+  ) {
+    // Do not auto-send users into the admin panel after login.
+    if (from === ROUTES.ADMIN || from.startsWith(`${ROUTES.ADMIN}/`)) {
+      return ROUTES.HOME
+    }
+    return from
+  }
+  return ROUTES.HOME
+}
+
 export function SignInForm() {
   const [values, setValues] = useState(initialValues)
   const [submitting, setSubmitting] = useState(false)
   const { login } = useAuth()
   const navigate = useNavigate()
+  const location = useLocation()
 
   async function handleSubmit(event) {
     event.preventDefault()
@@ -37,10 +53,7 @@ export function SignInForm() {
 
     try {
       const mapped = await login(values.email.trim(), values.password)
-      const destination =
-        mapped.role === USER_ROLES.ADMIN ? ADMIN_ROUTES.DASHBOARD : ROUTES.HOME
-
-      navigate(destination)
+      navigate(resolvePostLoginPath(location), { replace: true })
       queueMicrotask(() => showSuccess(getLoginSuccessMessage(mapped)))
     } catch (err) {
       showAuthApiError(err)

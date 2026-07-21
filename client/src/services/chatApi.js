@@ -19,7 +19,7 @@ const ERROR_MESSAGES = {
   AI_TIMEOUT: 'AI response generation is taking longer than expected. Please try again.',
   CATALOG_UNAVAILABLE: 'I cannot access product data right now. Please try again later.',
   AI_UNAVAILABLE: 'The model is currently unavailable. Please try again later.',
-  RATE_LIMIT: 'OpenAI rate limit exceeded. Try again shortly.',
+  RATE_LIMIT: 'The model is busy. Try again shortly.',
 }
 
 export function mapChatErrorCode(code, fallbackDetail) {

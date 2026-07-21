@@ -2,11 +2,16 @@ import logging
 import os
 from dataclasses import dataclass
 
-from chatbot.ai_config import log_provider_selection, openai_api_key_configured
+from chatbot.ai_config import (
+    MODEL_UNAVAILABLE_MESSAGE,
+    log_provider_selection,
+    ollama_model,
+    ollama_reachable,
+)
 from chatbot.business_rules import check_privacy_request, sanitize_response
 from chatbot.intent import ChatIntent, classify_intent
 from chatbot.prompts import build_system_prompt
-from chatbot.providers.openai_provider import OpenAIProvider
+from chatbot.providers.ollama_provider import OllamaProvider
 from chatbot.utils import AIServiceError, normalize_message, truncate_history
 
 logger = logging.getLogger(__name__)
@@ -27,21 +32,21 @@ def _support_email() -> str:
         return 'support@agrinexis.com'
 
 
-def get_provider() -> OpenAIProvider:
-    if not openai_api_key_configured():
-                raise AIServiceError(
-            'The model is currently unavailable. Please try again later.',
+def get_provider() -> OllamaProvider:
+    if not ollama_reachable():
+        raise AIServiceError(
+            MODEL_UNAVAILABLE_MESSAGE,
             status_code=503,
             error_code='AI_UNAVAILABLE',
         )
-    model = os.environ.get('OPENAI_MODEL', 'gpt-4o-mini')
-    provider = OpenAIProvider(model=model)
-    log_provider_selection(purpose='chat', provider_class='OpenAIProvider', model=model)
+    model = ollama_model()
+    provider = OllamaProvider(model=model)
+    log_provider_selection(purpose='chat', provider_class='OllamaProvider', model=model)
     return provider
 
 
 def _max_tokens() -> int:
-    raw = os.environ.get('OPENAI_MAX_TOKENS_CHAT', '1024').strip()
+    raw = os.environ.get('OLLAMA_MAX_TOKENS_CHAT', '1024').strip()
     try:
         return max(64, int(raw))
     except ValueError:
@@ -56,7 +61,7 @@ def generate_chat_response(
     if not text:
         raise AIServiceError('Message cannot be empty.', status_code=400)
 
-    # Fail before privacy/off-scope canned replies when the AI backend is not configured.
+    # Fail before privacy/off-scope canned replies when Ollama is unreachable.
     provider = get_provider()
 
     support_email = _support_email()

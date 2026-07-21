@@ -3,29 +3,26 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from chatbot.ai_config import openai_api_key_configured
+from chatbot.ai_config import MODEL_UNAVAILABLE_MESSAGE, ollama_reachable
 from chatbot.serializers import ChatRequestSerializer
 from chatbot.service import generate_chat_response
 from chatbot.utils import AIServiceError
 
-MODEL_UNAVAILABLE_DETAIL = 'The model is currently unavailable. Please try again later.'
-
 
 class ChatView(APIView):
-    """POST /api/chat/ — AgriNexis Assistant. GET returns health (model readiness)."""
+    """POST /api/chat/ — AgriNexis Assistant. GET returns health (Ollama readiness)."""
 
     authentication_classes: list = []
     permission_classes = [AllowAny]
 
     def get(self, request):
-        # Online only when OpenAI is configured; route-up alone is not enough.
-        if not openai_api_key_configured():
+        if not ollama_reachable():
             return Response(
                 {
                     'status': 'unavailable',
                     'service': 'agrinexis-chat',
                     'ai_ready': False,
-                    'detail': MODEL_UNAVAILABLE_DETAIL,
+                    'detail': MODEL_UNAVAILABLE_MESSAGE,
                     'error_code': 'AI_UNAVAILABLE',
                 },
                 status=status.HTTP_503_SERVICE_UNAVAILABLE,

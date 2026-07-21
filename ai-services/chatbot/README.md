@@ -2,21 +2,27 @@
 
 Website assistant logic for AgriNexis. Django mounts thin views at `/api/chat/` and imports this package.
 
+Uses **local Ollama only** (`phi4-mini` by default). No OpenAI dependency.
+
 ## Setup
 
-1. Install dependency (from `server/` venv):
+1. Install and run [Ollama](https://ollama.com/), then pull the model:
 
 ```bash
-pip install -r ../ai-services/chatbot/requirements.txt
+ollama pull phi4-mini
 ```
 
 2. Set in `server/.env`:
 
 ```
-OPENAI_API_KEY=sk-...
-OPENAI_MODEL=gpt-4o-mini
+OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_MODEL=phi4-mini
 ```
 
-Optional: `OPENAI_TIMEOUT_SECONDS`, `OPENAI_MAX_TOKENS_CHAT`, `OPENAI_ORG_ID`.
+Optional: `OLLAMA_TIMEOUT_SECONDS` (default 120), `OLLAMA_MAX_TOKENS_CHAT` (default 1024).
 
 3. Run the Django server as usual — `manage.py` adds this package to `PYTHONPATH`.
+
+## Health
+
+`GET /api/chat/` returns Online only when Ollama at `OLLAMA_BASE_URL` is reachable.

@@ -5,20 +5,35 @@ import {
   bootstrapSession,
   loginRequest,
   logoutRequest,
+  readStoredUser,
   registerRequest,
 } from '@/services/authApi'
+import { AUTH_USER_KEY } from '@/constants/authStorage'
 
 const AuthContext = createContext(null)
 
+function hasAccessToken() {
+  return Boolean(tokenStorage.getAccessToken())
+}
+
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
+  // Hydrate from localStorage so refresh keeps the user on protected routes
+  // while /api/auth/me/ confirms the session (avoids bounce via /signin).
+  const [user, setUser] = useState(() => (hasAccessToken() ? readStoredUser() : null))
+  const [isLoading, setIsLoading] = useState(() => hasAccessToken())
 
   useEffect(() => {
     let cancelled = false
 
     async function init() {
-      const hadToken = Boolean(tokenStorage.getAccessToken())
+      const hadToken = hasAccessToken()
+      if (!hadToken) {
+        if (!cancelled) {
+          setUser(null)
+          setIsLoading(false)
+        }
+        return
+      }
 
       try {
         const current = await bootstrapSession()
@@ -33,7 +48,7 @@ export function AuthProvider({ children }) {
       } catch {
         if (!cancelled) setUser(null)
       } finally {
-        setIsLoading(false)
+        if (!cancelled) setIsLoading(false)
       }
     }
 
@@ -71,7 +86,7 @@ export function AuthProvider({ children }) {
             ? `${parts[0][0]}${parts[1][0]}`.toUpperCase()
             : partial.name.slice(0, 2).toUpperCase()
       }
-      localStorage.setItem('agrinexis.user', JSON.stringify(next))
+      localStorage.setItem(AUTH_USER_KEY, JSON.stringify(next))
       return next
     })
   }, [])

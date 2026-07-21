@@ -18,11 +18,11 @@ class AIServiceError(Exception):
 
 
 def ai_timeout_seconds() -> float:
-    raw = os.environ.get('OPENAI_TIMEOUT_SECONDS', '60')
+    raw = os.environ.get('OLLAMA_TIMEOUT_SECONDS', '120')
     try:
         return max(5.0, float(raw))
     except (TypeError, ValueError):
-        return 60.0
+        return 120.0
 
 
 def normalize_message(message: str) -> str:

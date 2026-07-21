@@ -1,1 +1,1 @@
-openai>=1.40,<2.0
+# AgriNexis Chatbot — uses local Ollama only (stdlib HTTP; no extra pip packages required).

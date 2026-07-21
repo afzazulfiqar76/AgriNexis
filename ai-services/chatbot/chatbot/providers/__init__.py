@@ -1,3 +1,3 @@
-from chatbot.providers.openai_provider import OpenAIProvider
+from chatbot.providers.ollama_provider import OllamaProvider
 
-__all__ = ['OpenAIProvider']
+__all__ = ['OllamaProvider']
