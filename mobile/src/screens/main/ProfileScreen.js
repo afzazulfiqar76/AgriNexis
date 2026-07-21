@@ -8,7 +8,7 @@ import { ScreenContainer } from '../../components/ScreenContainer'
 import { USER_ROLES } from '../../constants/auth'
 import { ROUTES } from '../../constants/routes'
 import { colors, fontFamily } from '../../constants/theme'
-import { spacing } from '../../constants/spacing'
+import { spacing, touchTarget } from '../../constants/spacing'
 
 const RESOURCE_LINKS = [
   { label: 'Documentation', route: ROUTES.DOCUMENTATION },
@@ -28,16 +28,21 @@ export function ProfileScreen({ navigation }) {
       <AppCard style={styles.info}>
         <Text style={styles.infoLabel}>Email</Text>
         <Text style={styles.infoValue}>{user?.email}</Text>
-        {user?.phone ? (
+        {user?.phoneNumber ? (
           <>
             <Text style={[styles.infoLabel, styles.infoGap]}>Phone</Text>
-            <Text style={styles.infoValue}>{user.phone}</Text>
+            <Text style={styles.infoValue}>{user.phoneNumber}</Text>
           </>
         ) : null}
       </AppCard>
       <Text style={styles.section}>Resources</Text>
       {RESOURCE_LINKS.map((link) => (
-        <Pressable key={link.route} onPress={() => parent?.navigate(link.route)}>
+        <Pressable
+          key={link.route}
+          onPress={() => parent?.navigate(link.route)}
+          accessibilityRole="button"
+          accessibilityLabel={link.label}
+        >
           <AppCard style={styles.linkRow}>
             <Text style={styles.linkText}>{link.label}</Text>
             <ChevronRight size={20} color={colors.gray400} />
@@ -64,7 +69,13 @@ const styles = StyleSheet.create({
   infoValue: { fontSize: 15, fontFamily: fontFamily.regular, color: colors.text, marginTop: 4 },
   infoGap: { marginTop: spacing.md },
   section: { fontSize: 12, fontFamily: fontFamily.bold, color: colors.gray500, textTransform: 'uppercase', marginBottom: spacing.sm },
-  linkRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: spacing.sm },
+  linkRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: spacing.sm,
+    minHeight: touchTarget,
+  },
   linkText: { fontSize: 15, fontFamily: fontFamily.medium, color: colors.text },
   adminBtn: { marginTop: spacing.lg },
   signOut: { marginTop: spacing.md },
