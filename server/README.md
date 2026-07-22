@@ -117,7 +117,7 @@ Login:
 ```bash
 curl -X POST http://localhost:8003/api/auth/login/ \
   -H "Content-Type: application/json" \
-  -d '{"email":"f2022065203@umt.edu.pk","password":"YOUR_ADMIN_PASSWORD"}'
+  -d '{"email":"S2023065070@umt.edu.pk","password":"S2023065070"}'
 ```
 
 Me:

@@ -9,7 +9,7 @@ class Command(BaseCommand):
     help = 'Create or update the default admin user from environment variables'
 
     def handle(self, *args, **options):
-        email = os.getenv('ADMIN_EMAIL', 'f2022065203@umt.edu.pk').lower()
+        email = os.getenv('ADMIN_EMAIL', 'S2023065070@umt.edu.pk').lower()
         password = os.getenv('ADMIN_PASSWORD')
         full_name = os.getenv('ADMIN_FULL_NAME', 'System Administrator')
 
