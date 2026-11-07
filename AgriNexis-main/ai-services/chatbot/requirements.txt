@@ -1,0 +1,1 @@
+# AgriNexis Chatbot — uses local Ollama only (stdlib HTTP; no extra pip packages required).

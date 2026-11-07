@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+client/node_modules/
+client/dist/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Editor & OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.sw?
+
+# Local
+*.local
+
+# Local-only workspace — never commit or push
+_local/
+
+# Django server
+server/.env
+server/db.sqlite3
+server/media/
+server/staticfiles/
+server/**/__pycache__/
+server/**/*.pyc
+*.py[cod]

@@ -1,0 +1,17 @@
+{
+  "name": "agrinexis",
+  "private": true,
+  "version": "1.0.0",
+  "description": "AgriNexis monorepo — fixed local ports: Web 8001, Expo 8002, Django 8003",
+  "scripts": {
+    "free-ports": "node scripts/free-ports.mjs",
+    "dev": "node scripts/dev.mjs",
+    "dev:api": "node scripts/dev.mjs --api",
+    "dev:web": "node scripts/dev.mjs --web",
+    "dev:mobile": "node scripts/dev.mjs --mobile",
+    "dev:free": "node scripts/free-ports.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

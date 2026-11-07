@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: agrinexis --default;
+}
+
+@plugin "daisyui/theme" {
+  name: "agrinexis";
+  default: true;
+  --color-primary: #00a36c;
+  --color-primary-content: #ffffff;
+  --color-base-100: #ffffff;
+  --color-base-200: #f0fdf4;
+  --color-base-300: #f3f4f6;
+  --color-base-content: #111827;
+  --font-sans: Inter, system-ui, sans-serif;
+  --rounded-box: 1rem;
+  --rounded-btn: 0.75rem;
+}
+
+@theme {
+  --color-footer: #0a1120;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100dvh;
+}
+
+/* react-hot-toast — single notification slot, above app chrome */
+[data-rht-toaster] {
+  z-index: 10000 !important;
+  pointer-events: none;
+}
+
+[data-rht-toaster] > div {
+  pointer-events: auto;
+  margin: 0 !important;
+}
+
+/* Auth pages: centered above the form, clear of the sign-in card */
+[data-rht-toaster].auth-toaster--center {
+  top: 1.25rem !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  padding-inline: 1rem;
+}
+
+/* App/admin: top-right below header */
+[data-rht-toaster].auth-toaster--corner {
+  top: 4rem !important;
+  right: 1rem !important;
+}
+
+@media (min-width: 640px) {
+  [data-rht-toaster].auth-toaster--center {
+    top: 1.5rem !important;
+  }
+
+  [data-rht-toaster].auth-toaster--corner {
+    top: 4.5rem !important;
+    right: 1.5rem !important;
+  }
+}
+
+@keyframes progress-fill {
+  from {
+    width: 0;
+  }
+}
+
+@keyframes dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@layer utilities {
+  .animate-progress-fill {
+    animation: progress-fill 0.8s ease-out forwards;
+  }
+
+  .animate-dropdown-in {
+    animation: dropdown-in 0.2s ease-out forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transform: none !important;
+  }
+}
