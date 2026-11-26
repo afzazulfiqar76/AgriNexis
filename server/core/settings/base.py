@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.authentication',
     'apps.chatbot',
+    'apps.farms',
+    'apps.community',
 ]
 
 SUPPORT_EMAIL = os.getenv('SUPPORT_EMAIL', 'support@agrinexis.com')

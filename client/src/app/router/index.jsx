@@ -5,6 +5,7 @@ import { ROUTES } from '@/constants/routes'
 import { SignInPage } from '@/pages/auth/SignInPage'
 import { SignUpPage } from '@/pages/auth/SignUpPage'
 import { DashboardPage } from '@/pages/dashboard/DashboardPage'
+import { FarmAnalyticsPage } from '@/pages/dashboard/FarmAnalyticsPage'
 import { HomePage } from '@/pages/public/HomePage'
 import { CommunityPage } from '@/pages/public/CommunityPage'
 import { AiDoctorPage } from '@/pages/public/AiDoctorPage'
@@ -62,6 +63,7 @@ export const router = createBrowserRouter([
               { path: ROUTES.IOT_SENSORS, element: <IotSensorsPage /> },
               { path: ROUTES.COMMUNITY, element: <CommunityPage /> },
               { path: ROUTES.DASHBOARD, element: <DashboardPage /> },
+              { path: ROUTES.ANALYTICS, element: <FarmAnalyticsPage /> },
             ],
           },
           {

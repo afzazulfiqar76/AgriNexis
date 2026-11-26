@@ -1,9 +1,29 @@
 import { BarChart3, Plus } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/Button'
+import { ROUTES } from '@/constants/routes'
 import { TRANSITION_UI } from '@/constants/uiClasses'
+import { useAuth } from '@/contexts/AuthContext'
+import { useFarms } from '@/contexts/FarmsContext'
 import { cn } from '@/utils/cn'
 
+/** One friendly line under the heading, based on the user's real farms */
+function getSubtitle(summary) {
+  if (!summary || summary.active_farms === 0) {
+    return 'Add your first farm to start tracking its health.'
+  }
+  const health = summary.average_health
+  const mood = health >= 80 ? 'thriving' : health >= 50 ? 'doing fine' : 'need some care'
+  return `Your urban farms are ${mood} with ${health}% average health score`
+}
+
 export function WelcomeBanner() {
+  const navigate = useNavigate()
+  const { user } = useAuth()
+  const { summary, openAdd } = useFarms()
+
+  const firstName = user?.name?.trim().split(/\s+/)[0] || 'Farmer'
+
   return (
     <article
       className={cn(
@@ -23,18 +43,28 @@ export function WelcomeBanner() {
 
       <div className="relative z-10 max-w-2xl">
         <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
-          Welcome back, Admin!
+          Welcome back, {firstName}!
         </h1>
         <p className="mt-2 text-sm leading-relaxed text-white/90 sm:text-base">
-          Your urban farms are thriving with 87% average health score
+          {getSubtitle(summary)}
         </p>
 
         <div className="mt-6 flex flex-wrap gap-3">
-          <Button type="button" variant="outline" className="h-11 px-5 text-sm">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={openAdd}
+            className="h-11 px-5 text-sm"
+          >
             <Plus className="size-4" strokeWidth={2.5} aria-hidden="true" />
             Add New Farm
           </Button>
-          <Button type="button" variant="ghost-light" className="h-11 px-5 text-sm">
+          <Button
+            type="button"
+            variant="ghost-light"
+            onClick={() => navigate(ROUTES.ANALYTICS)}
+            className="h-11 px-5 text-sm"
+          >
             <BarChart3 className="size-4" strokeWidth={2} aria-hidden="true" />
             View Analytics
           </Button>

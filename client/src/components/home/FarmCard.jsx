@@ -11,6 +11,7 @@ export function FarmCard({
   plantCount,
   healthScore,
   accentClassName,
+  onViewDetails,
 }) {
   return (
     <InteractiveCard
@@ -58,7 +59,11 @@ export function FarmCard({
           </div>
         </div>
 
-        <Button variant="secondary" className="mt-5 h-10 w-full gap-1 text-sm font-medium">
+        <Button
+          variant="secondary"
+          onClick={onViewDetails}
+          className="mt-5 h-10 w-full gap-1 text-sm font-medium"
+        >
           View Details
           <ChevronRight className="size-4" strokeWidth={2} aria-hidden="true" />
         </Button>

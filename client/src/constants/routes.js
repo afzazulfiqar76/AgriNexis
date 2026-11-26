@@ -3,6 +3,7 @@ export const ROUTES = {
   SIGN_IN: '/signin',
   SIGN_UP: '/signup',
   DASHBOARD: '/dashboard',
+  ANALYTICS: '/analytics',
   AI_DOCTOR: '/ai-doctor',
   IOT_SENSORS: '/iot-sensors',
   COMMUNITY: '/community',
