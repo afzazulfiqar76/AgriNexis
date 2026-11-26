@@ -9,6 +9,7 @@ urlpatterns = [
     path('api/health/', include('apps.authentication.health_urls')),
     path('api/chat/', include('apps.chatbot.urls')),
     path('api/farms/', include('apps.farms.urls')),
+    path('api/community/', include('apps.community.urls')),
 ]
 
 if settings.DEBUG:
